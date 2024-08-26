@@ -1,5 +1,6 @@
 type hEvent = {
-  course: hCourse;
+  eventDescription: string;
+  coursesOfAction: hCourse[];
 };
 
 type hCourse = {
