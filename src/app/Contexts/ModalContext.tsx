@@ -1,5 +1,12 @@
 "use client";
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
+import { createPortal } from "react-dom";
 
 interface ModalOptions {
   message?: string;
@@ -8,10 +15,13 @@ interface ModalOptions {
   width?: string;
   height?: string;
   className?: string;
+  showConfirmButton: boolean;
 }
 
 export class ModalBuilder {
-  private options: ModalOptions = {};
+  private options: ModalOptions = {
+    showConfirmButton: true,
+  };
   private openModalFunction: ((options: ModalOptions) => void) | null = null;
 
   constructor(openModal: (options: ModalOptions) => void) {
@@ -48,6 +58,11 @@ export class ModalBuilder {
     return this;
   }
 
+  removeConfirmButton(): ModalBuilder {
+    this.options.showConfirmButton = false;
+    return this;
+  }
+
   build(): ModalOptions {
     return this.options;
   }
@@ -80,7 +95,15 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [modalOptions, setModalOptions] = useState<ModalOptions>({});
+  const [modalOptions, setModalOptions] = useState<ModalOptions>({
+    showConfirmButton: true,
+  });
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
   const openModal = (options: ModalOptions) => {
     setModalOptions(options);
@@ -89,7 +112,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
 
   const closeModal = () => {
     setIsOpen(false);
-    setModalOptions({});
+    setModalOptions({ showConfirmButton: true });
   };
 
   const handleConfirm = (content?: string[]) => {
@@ -108,45 +131,48 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
     closeModal,
   };
 
-  const modalStyle: React.CSSProperties = {
-    width: modalOptions.width || "auto",
-    height: modalOptions.height || "auto",
-  };
+  const modalContent =
+    isOpen && mounted
+      ? createPortal(
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div
+              className={`bg-white p-6 rounded-lg ${
+                modalOptions.className || ""
+              }`}
+              style={{ width: modalOptions.width, height: modalOptions.height }}
+            >
+              {modalOptions.message && (
+                <h2 className="text-xl font-bold mb-4">
+                  {modalOptions.message}
+                </h2>
+              )}
+              {modalOptions.content}
+              <div className="mt-4 flex justify-end">
+                <button
+                  onClick={closeModal}
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded mr-2"
+                >
+                  Cancel
+                </button>
+                {modalOptions.showConfirmButton && (
+                  <button
+                    onClick={() => handleConfirm()}
+                    className="px-4 py-2 bg-blue-500 text-white rounded"
+                  >
+                    Confirm
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>,
+          document.body
+        )
+      : null;
 
   return (
     <ModalContext.Provider value={contextValue}>
       {children}
-      {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 fade-in">
-          <div
-            className={`bg-violet-800 p-6 rounded-lg shadow-md ${
-              modalOptions.className || ""
-            }`}
-            style={modalStyle}
-          >
-            {modalOptions.message && (
-              <h2 className="text-lg font-semibold mb-2">
-                {modalOptions.message}
-              </h2>
-            )}
-            {modalOptions.content}
-            <div className="mt-4 flex justify-end">
-              <button
-                onClick={closeModal}
-                className="px-4 py-2 bg-gray-800 rounded-md mr-2"
-              >
-                Close
-              </button>
-              <button
-                onClick={() => handleConfirm()}
-                className="px-4 py-2 bg-blue-500 text-white rounded-md"
-              >
-                Confirm
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {modalContent}
     </ModalContext.Provider>
   );
 };

@@ -1,9 +1,5 @@
-type hEvent = {
-  eventDescription: string;
-  coursesOfAction: hCourse[];
-};
-
-type hCourse = {
+export type HCourseOfAction = {
+  description: string;
   intensity: number;
   duration: number;
   certainty: number;
@@ -11,4 +7,10 @@ type hCourse = {
   fecundity: number;
   purity: number;
   extent: number;
+  isPublic: boolean;
+};
+
+export type HEvent = {
+  description: string;
+  coursesOfAction: HCourseOfAction[];
 };

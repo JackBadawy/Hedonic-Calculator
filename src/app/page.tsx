@@ -1,12 +1,5 @@
-import AddEvent from "./Componants/Buttons/AddEvent";
-import { ModalProvider } from "./Contexts/ModalContext";
+import Main from "./Componants/Pages/Main";
 
 export default function Home() {
-  return (
-    <ModalProvider>
-      <div className="bg-violet-100 min-h-screen">
-        <AddEvent />
-      </div>
-    </ModalProvider>
-  );
+  return <Main />;
 }

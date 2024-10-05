@@ -8,6 +8,8 @@ This is a calculator based on Jeremy Bentham's felicific calculus. The purpose o
 
 - Calculation of joy based on various factors
 - Modal system using the Builder pattern for flexible and intuitive modal creation
+- Event management system with add and remove functionality
+- Server-Side Rendering (SSR) optimized components
 
 ## Variables
 
@@ -51,6 +53,47 @@ new ModalBuilder()
 
 This pattern allows for easy creation, customization, and immediate display of modals across the application.
 
-### Live Demo
+### Event Management System
+
+The application includes an event management system that allows users to add and remove events. Key features include:
+
+- `EventsContext` for centralized state management of events
+- `EventListContainer` for displaying the list of events
+- `EventCard` component for rendering individual event details
+- Add and remove functionality for events
+
+### SSR Optimization
+
+The project is optimized for Server-Side Rendering:
+
+- Use of Next.js App Router for efficient routing and rendering
+- Separation of server and client components for optimal performance
+- Implementation of Suspense and fallback components for improved loading experience
+
+## Project Structure
+
+```
+app/
+  Contexts/
+    EventsContext.tsx
+    ModalContext.tsx
+  Components/
+    Buttons/
+      AddEvent.tsx
+    Cards/
+      EventCard.tsx
+    Containers/
+      EventListContainer.tsx
+      EventListContainerClient.tsx
+    Modals/
+      NewEventForm.tsx
+  Types/
+    hedon.ts
+  layout.tsx
+  page.tsx
+  Providers.tsx
+```
+
+## Live Demo
 
 TBA

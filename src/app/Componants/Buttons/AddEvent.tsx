@@ -1,6 +1,5 @@
 "use client";
 import { useModal } from "@/app/Contexts/ModalContext";
-import React from "react";
 import NewEventForm from "../Modals/NewEventForm";
 
 const AddEvent = () => {
@@ -10,9 +9,7 @@ const AddEvent = () => {
     new ModalBuilder()
       .setMessage("Add New Event")
       .displayContent(<NewEventForm />)
-      .setOnConfirm(() => {
-        console.log("Event added");
-      })
+      .removeConfirmButton()
       .open();
   };
 
