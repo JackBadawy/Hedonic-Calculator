@@ -1,14 +1,68 @@
 "use client";
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import BaseModal from "../Componants/Modals/BaseModal";
+import { createContext, useContext, useState, ReactNode } from "react";
+
+interface ModalOptions {
+  message?: string;
+  onConfirm?: (content?: string[]) => void;
+  content?: React.ReactNode;
+  width?: string;
+  height?: string;
+  className?: string;
+}
+
+export class ModalBuilder {
+  private options: ModalOptions = {};
+  private openModalFunction: ((options: ModalOptions) => void) | null = null;
+
+  constructor(openModal: (options: ModalOptions) => void) {
+    this.openModalFunction = openModal;
+  }
+
+  setMessage(message: string): ModalBuilder {
+    this.options.message = message;
+    return this;
+  }
+
+  setOnConfirm(onConfirm: (content?: string[]) => void): ModalBuilder {
+    this.options.onConfirm = onConfirm;
+    return this;
+  }
+
+  displayContent(content: React.ReactNode): ModalBuilder {
+    this.options.content = content;
+    return this;
+  }
+
+  setWidth(width: string): ModalBuilder {
+    this.options.width = width;
+    return this;
+  }
+
+  setHeight(height: string): ModalBuilder {
+    this.options.height = height;
+    return this;
+  }
+
+  setClassName(className: string): ModalBuilder {
+    this.options.className = className;
+    return this;
+  }
+
+  build(): ModalOptions {
+    return this.options;
+  }
+
+  open(): void {
+    if (this.openModalFunction) {
+      this.openModalFunction(this.build());
+    } else {
+      console.error("openModal function is not set");
+    }
+  }
+}
 
 interface ModalContextProps {
-  openModal: (
-    message: string,
-    onConfirm?: (content?: string[]) => void,
-    fileName?: string,
-    renderContent?: () => JSX.Element
-  ) => void;
+  ModalBuilder: new () => ModalBuilder;
   closeModal: () => void;
 }
 
@@ -26,47 +80,73 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [message, setMessage] = useState("");
-  const [fileName, setFileName] = useState<string | undefined>(undefined);
-  const [onConfirm, setOnConfirm] = useState<
-    ((content?: string[]) => void) | undefined
-  >(undefined);
-  const [renderContent, setRenderContent] = useState<
-    (() => JSX.Element) | undefined
-  >(undefined);
+  const [modalOptions, setModalOptions] = useState<ModalOptions>({});
 
-  const openModal = (
-    message: string,
-    onConfirm?: (content?: string[]) => void,
-    fileName?: string,
-    renderContent?: () => JSX.Element
-  ) => {
-    setMessage(message);
-    setOnConfirm(() => onConfirm);
-    setFileName(fileName);
-    setRenderContent(() => renderContent);
+  const openModal = (options: ModalOptions) => {
+    setModalOptions(options);
     setIsOpen(true);
   };
 
   const closeModal = () => {
     setIsOpen(false);
-    setMessage("");
-    setFileName(undefined);
-    setOnConfirm(undefined);
-    setRenderContent(undefined);
+    setModalOptions({});
+  };
+
+  const handleConfirm = (content?: string[]) => {
+    if (modalOptions.onConfirm) {
+      modalOptions.onConfirm(content);
+    }
+    closeModal();
+  };
+
+  const contextValue: ModalContextProps = {
+    ModalBuilder: class extends ModalBuilder {
+      constructor() {
+        super(openModal);
+      }
+    },
+    closeModal,
+  };
+
+  const modalStyle: React.CSSProperties = {
+    width: modalOptions.width || "auto",
+    height: modalOptions.height || "auto",
   };
 
   return (
-    <ModalContext.Provider value={{ openModal, closeModal }}>
+    <ModalContext.Provider value={contextValue}>
       {children}
-      <BaseModal
-        isOpen={isOpen}
-        onClose={closeModal}
-        onConfirm={onConfirm}
-        message={message}
-        fileName={fileName}
-        renderContent={renderContent}
-      />
+      {isOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 fade-in">
+          <div
+            className={`bg-violet-800 p-6 rounded-lg shadow-md ${
+              modalOptions.className || ""
+            }`}
+            style={modalStyle}
+          >
+            {modalOptions.message && (
+              <h2 className="text-lg font-semibold mb-2">
+                {modalOptions.message}
+              </h2>
+            )}
+            {modalOptions.content}
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 bg-gray-800 rounded-md mr-2"
+              >
+                Close
+              </button>
+              <button
+                onClick={() => handleConfirm()}
+                className="px-4 py-2 bg-blue-500 text-white rounded-md"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </ModalContext.Provider>
   );
 };
