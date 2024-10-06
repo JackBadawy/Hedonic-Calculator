@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { EventsProvider } from "./Contexts/EventsContext";
 import { ModalProvider } from "./Contexts/ModalContext";
+import { AuthProvider } from "./Contexts/AuthContext";
 
 interface ProvidersProps {
   children: ReactNode;
@@ -8,9 +9,11 @@ interface ProvidersProps {
 
 const Providers: React.FC<ProvidersProps> = ({ children }) => {
   return (
-    <EventsProvider>
-      <ModalProvider>{children}</ModalProvider>
-    </EventsProvider>
+    <AuthProvider>
+      <EventsProvider>
+        <ModalProvider>{children}</ModalProvider>
+      </EventsProvider>
+    </AuthProvider>
   );
 };
 

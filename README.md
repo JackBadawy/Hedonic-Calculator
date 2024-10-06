@@ -1,4 +1,4 @@
-# Hedon Calculator
+# Hedonic Calculator
 
 ## Overview
 
@@ -6,10 +6,12 @@ This is a calculator based on Jeremy Bentham's felicific calculus. The purpose o
 
 ## Key Features
 
+- Authentication system with user registration, login, and session management
 - Calculation of joy based on various factors
 - Modal system using the Builder pattern for flexible and intuitive modal creation
 - Event management system with add and remove functionality
 - Server-Side Rendering (SSR) optimized components
+- Comprehensive test suite for backend functionality
 
 ## Variables
 
@@ -93,6 +95,59 @@ app/
   page.tsx
   Providers.tsx
 ```
+
+## Backend
+
+The backend is built using Spring Boot and provides a RESTful API for managing events and courses of action, and user authentication.
+
+### Key Features:
+
+- User authentication and session management
+- CRUD operations for events and courses of action
+- Automatic calculation of hedonic values for courses of action
+- Determination of the ideal course of action for each event
+
+### Authentication System:
+
+The project includes a robust authentication system with the following features:
+
+- User registration with unique usernames
+- Secure password hashing using BCrypt
+- User login with session token generation
+- Session validation
+- Logout functionality
+
+The authentication system is implemented in the `AuthService` class and utilizes Spring Security for password encoding.
+
+### Utility Functions
+
+The backend includes utility functions for calculating hedonic values and determining ideal courses of action:
+
+- `calculateHedonicValue(HCourseOfAction course)`: Calculates the hedonic value of a course of action based on its attributes.
+- `findIdealCourse(List<HCourseOfAction> courses)`: Determines the course of action with the highest hedonic value from a list of courses.
+
+### Automatic Updates
+
+The system automatically updates hedonic values and ideal courses:
+
+- When a course of action is created or updated, its hedonic value is automatically calculated.
+- When an event's courses of action are set or updated, the ideal course is automatically determined.
+
+### API Endpoints
+
+- `POST /api/auth/register`: Register a new user
+- `POST /api/auth/login`: User login
+- `POST /api/auth/logout`: User logout
+- `GET /api/auth/validate`: Validate session token
+- `GET /api/events`: Retrieve all events
+- `GET /api/events/{id}`: Retrieve a specific event
+- `POST /api/events`: Create a new event
+- `PUT /api/events/{id}`: Update an existing event
+- `DELETE /api/events/{id}`: Delete an event
+
+### Database
+
+The application uses an H2 in-memory database for development and testing purposes and mySql for prod. The database configuration can be found in the `application.properties` file.
 
 ## Live Demo
 
