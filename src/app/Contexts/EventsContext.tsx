@@ -1,57 +1,66 @@
 "use client";
-import { createContext, useContext, useState, ReactNode } from "react";
-import { HEvent, HCourseOfAction } from "../Types/hedon";
+import { createContext, useContext, ReactNode } from "react";
+import { HEvent } from "@/app/Types/hedon";
+import { useAuth } from "./AuthContext";
 
 interface EventsContextType {
-  events: HEvent[];
-  addEvent: (event: HEvent) => void;
-  removeEvent: (index: number) => void;
-  addCourseOfAction: (eventIndex: number, course: HCourseOfAction) => void;
+  removeEvent: (id: number) => Promise<boolean>;
+  addEvent: (event: HEvent) => Promise<HEvent | null>;
 }
 
 const EventsContext = createContext<EventsContextType | undefined>(undefined);
 
-export const useEvents = () => {
-  const context = useContext(EventsContext);
-  if (!context) {
-    throw new Error("useEvents must be used within an EventsProvider");
-  }
-  return context;
-};
-
 export const EventsProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [events, setEvents] = useState<HEvent[]>([]);
+  const { sessionToken } = useAuth();
 
-  const addEvent = (event: HEvent) => {
-    setEvents((prevEvents) => [...prevEvents, event]);
+  const removeEvent = async (id: number): Promise<boolean> => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/events/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${sessionToken}`,
+        },
+      });
+      return response.ok;
+    } catch (error) {
+      console.error("Error removing event:", error);
+      return false;
+    }
   };
 
-  const removeEvent = (index: number) => {
-    setEvents((prevEvents) => prevEvents.filter((_, i) => i !== index));
-  };
-
-  const addCourseOfAction = (eventIndex: number, course: HCourseOfAction) => {
-    setEvents((prevEvents) => {
-      const newEvents = [...prevEvents];
-      if (newEvents[eventIndex]) {
-        newEvents[eventIndex].coursesOfAction.push(course);
+  const addEvent = async (event: HEvent): Promise<HEvent | null> => {
+    try {
+      const response = await fetch("http://localhost:8080/api/events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionToken}`,
+        },
+        body: JSON.stringify(event),
+      });
+      if (response.ok) {
+        return await response.json();
       }
-      return newEvents;
-    });
-  };
-
-  const contextValue: EventsContextType = {
-    events,
-    addEvent,
-    removeEvent,
-    addCourseOfAction,
+      return null;
+    } catch (error) {
+      console.error("Error adding event:", error);
+      return null;
+    }
   };
 
   return (
-    <EventsContext.Provider value={contextValue}>
+    <EventsContext.Provider value={{ removeEvent, addEvent }}>
       {children}
     </EventsContext.Provider>
   );
+};
+
+export const useEvents = () => {
+  const context = useContext(EventsContext);
+  if (context === undefined) {
+    throw new Error("useEvents must be used within an EventsProvider");
+  }
+  return context;
 };

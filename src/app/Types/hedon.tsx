@@ -12,6 +12,7 @@ export type HCourseOfAction = {
 };
 
 export type HEvent = {
+  id?: number;
   description: string;
   coursesOfAction: HCourseOfAction[];
   idealCourse?: HCourseOfAction;

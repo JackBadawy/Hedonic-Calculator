@@ -24,7 +24,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, onRemove }) => {
       <p className="text-sm mb-2">
         Courses of Action: {event.coursesOfAction.length}
       </p>
-      <div className="flex">
+      <div className="flex flex-wrap gap-2">
         {event.coursesOfAction.map((course, index) => (
           <div
             key={index}

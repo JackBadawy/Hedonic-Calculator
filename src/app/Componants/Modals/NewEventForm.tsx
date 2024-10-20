@@ -1,15 +1,15 @@
-"use client";
-import { useEvents } from "@/app/Contexts/EventsContext";
-import { useModal } from "@/app/Contexts/ModalContext";
-import { HCourseOfAction } from "@/app/Types/hedon";
 import { useState } from "react";
-import { HEvent } from "@/app/Types/hedon";
+import { useModal } from "@/app/Contexts/ModalContext";
+import { HEvent, HCourseOfAction } from "@/app/Types/hedon";
 import { calculateUtility } from "@/app/Logic/UtilityFuncs";
 
-const NewEventForm: React.FC = () => {
+interface NewEventFormProps {
+  onSubmit: (event: HEvent) => Promise<void>;
+}
+
+const NewEventForm: React.FC<NewEventFormProps> = ({ onSubmit }) => {
   const [eventDescription, setEventDescription] = useState("");
   const [coursesOfAction, setCoursesOfAction] = useState<HCourseOfAction[]>([]);
-  const { addEvent } = useEvents();
   const { closeModal } = useModal();
 
   const handleAddCourse = () => {
@@ -45,14 +45,14 @@ const NewEventForm: React.FC = () => {
     setCoursesOfAction(updatedCourses);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (eventDescription.trim() && coursesOfAction.length > 0) {
       const newEvent: HEvent = {
         description: eventDescription.trim(),
         coursesOfAction: coursesOfAction,
       };
-      addEvent(newEvent);
+      await onSubmit(newEvent);
       closeModal();
     }
   };

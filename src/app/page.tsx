@@ -1,5 +1,11 @@
-import Main from "./Componants/Pages/Main";
+import AuthWrapper from "./AuthWrapper";
+import { Suspense } from "react";
+import LoadingFallback from "./LoadingFallback";
 
 export default function Home() {
-  return <Main />;
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <AuthWrapper />
+    </Suspense>
+  );
 }
