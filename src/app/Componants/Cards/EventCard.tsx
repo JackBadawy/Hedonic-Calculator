@@ -7,19 +7,12 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event, onRemove }) => {
-  const findIdealCourse = (courses: HCourseOfAction[]): HCourseOfAction => {
-    return courses.reduce((ideal, current) =>
-      calculateUtility(current) > calculateUtility(ideal) ? current : ideal
-    );
-  };
-
-  const idealCourse = findIdealCourse(event.coursesOfAction);
-
   return (
     <div className="bg-violet-200 p-4 rounded-lg shadow-md mb-4 text-violet-900 flex flex-col">
       <h3 className="text-lg font-semibold mb-2">{event.description}</h3>
       <p className="text-sm mb-1">
-        Ideal Course of Action: {idealCourse.description}
+        Ideal Course of Action:{" "}
+        {event.idealCourse && event.idealCourse.description}
       </p>
       <p className="text-sm mb-2">
         Courses of Action: {event.coursesOfAction.length}
@@ -41,7 +34,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, onRemove }) => {
               <p className="text-sm">Extent: {course.extent}</p>
             </div>
             <p className="text-sm font-semibold mt-2">
-              Overall Utility: {calculateUtility(course)}
+              Hedonic Value: {course.hedonicValue} Hedons
             </p>
             <p className="text-sm">
               Public Impact: {course.isPublic ? "Yes" : "No"}

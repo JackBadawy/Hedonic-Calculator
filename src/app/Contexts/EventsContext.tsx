@@ -28,6 +28,7 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
   const fetchEventsHandler = useCallback(async () => {
     if (sessionToken) {
       const fetchedEvents = await fetchEvents(sessionToken);
+      console.log(fetchedEvents);
       setEvents(fetchedEvents);
     }
   }, [sessionToken]);

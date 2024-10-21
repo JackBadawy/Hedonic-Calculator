@@ -8,7 +8,7 @@ export type HCourseOfAction = {
   purity: number;
   extent: number;
   isPublic: boolean;
-  HedonicValue?: number;
+  hedonicValue?: number;
 };
 
 export type HEvent = {
