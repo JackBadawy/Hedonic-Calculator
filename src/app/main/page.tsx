@@ -1,11 +1,16 @@
 "use client";
 import { useEvents } from "@/app/Contexts/EventsContext";
-import AddEvent from "../Buttons/AddEvent";
-import EventListContainerClient from "../Containers/EventList/EventListContainerClient";
+import AddEvent from "../Componants/Buttons/AddEvent";
+import EventListContainerClient from "../Componants/Containers/EventList/EventListContainerClient";
 import { HEvent } from "@/app/Types/hedon";
+import { useEffect } from "react";
 
-const Main = () => {
-  const { events, removeEvent, addEvent } = useEvents();
+export default function Main() {
+  const { events, removeEvent, addEvent, fetchEvents } = useEvents();
+
+  useEffect(() => {
+    fetchEvents();
+  }, [fetchEvents]);
 
   const handleRemoveEvent = async (id: number) => {
     await removeEvent(id);
@@ -24,6 +29,4 @@ const Main = () => {
       />
     </div>
   );
-};
-
-export default Main;
+}

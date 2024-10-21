@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useModal } from "@/app/Contexts/ModalContext";
 import { HEvent, HCourseOfAction } from "@/app/Types/hedon";
-import { calculateUtility } from "@/app/Logic/UtilityFuncs";
+import { calculateUtility } from "@/app/Utilities/UtilityFuncs";
 
 interface NewEventFormProps {
   onSubmit: (event: HEvent) => Promise<void>;

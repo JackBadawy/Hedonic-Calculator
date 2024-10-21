@@ -1,5 +1,5 @@
 import { HEvent, HCourseOfAction } from "@/app/Types/hedon";
-import { calculateUtility } from "@/app/Logic/UtilityFuncs";
+import { calculateUtility } from "@/app/Utilities/UtilityFuncs";
 
 interface EventCardProps {
   event: HEvent;
