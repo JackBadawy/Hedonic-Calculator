@@ -4,7 +4,10 @@ import { createContext, useContext, useState, ReactNode } from "react";
 interface AuthContextType {
   isAuthenticated: boolean;
   sessionToken: string | null;
-  login: (username: string, password: string) => Promise<boolean>;
+  login: (
+    username: string,
+    password: string
+  ) => Promise<{ success: boolean; message: string }>;
   logout: () => void;
 }
 
@@ -31,14 +34,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
       if (response.ok) {
         const token = await response.text();
-        setSessionToken(token);
+        const cleanToken = token.replace(/^"|"$/g, "");
+        setSessionToken(cleanToken);
         setIsAuthenticated(true);
-        return true;
+        return { success: true, message: "Login successful" };
+      } else {
+        const errorText = await response.text();
+        console.error("Login failed:", errorText);
+        return { success: false, message: `Login failed: ${errorText}` };
       }
-      return false;
     } catch (error) {
       console.error("Login error:", error);
-      return false;
+      return { success: false, message: `Login error: ${error}` };
     }
   };
 
