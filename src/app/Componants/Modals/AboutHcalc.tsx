@@ -15,7 +15,7 @@ const AboutHcalc = () => {
       </p>
 
       <h3 className="text-xl font-semibold mt-4">7 Aspects</h3>
-      <p>TBA</p>
+
       <ul>
         <li>
           <p>

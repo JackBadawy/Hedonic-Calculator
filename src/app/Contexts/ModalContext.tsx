@@ -95,6 +95,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [modalOptions, setModalOptions] = useState<ModalOptions>({
     showConfirmButton: true,
   });
@@ -111,8 +112,12 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const closeModal = () => {
-    setIsOpen(false);
-    setModalOptions({ showConfirmButton: true });
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsOpen(false);
+      setIsClosing(false);
+      setModalOptions({ showConfirmButton: true });
+    }, 400);
   };
 
   const handleConfirm = (content?: string[]) => {
@@ -135,13 +140,15 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
     isOpen && mounted
       ? createPortal(
           <div
-            className="z-0 text-hpal-100 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center fade-in"
+            className={`z-0 text-hpal-100 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ${
+              isClosing ? "fade-out" : "fade-in"
+            }`}
             onClick={closeModal}
           >
             <div
-              className={`bg-hpal-500 p-6 rounded-lg slide-down mx-8 ${
-                modalOptions.className || ""
-              }`}
+              className={`bg-hpal-500 p-6 rounded-lg mx-8 ${
+                isClosing ? "slide-up" : "slide-down"
+              } ${modalOptions.className || ""}`}
               style={{ width: modalOptions.width, height: modalOptions.height }}
               onClick={(e) => e.stopPropagation()}
             >
@@ -154,7 +161,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
               <div className="mt-4 flex justify-end">
                 <button
                   onClick={closeModal}
-                  className="px-4 py-2 bg-hpal-100 text-hpal-400 rounded mr-2"
+                  className="px-4 py-2 bg-hpal-100 text-hpal-500 rounded mr-2 font-bold"
                 >
                   Cancel
                 </button>

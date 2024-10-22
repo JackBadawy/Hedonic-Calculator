@@ -25,7 +25,6 @@ export default function Login() {
 
   return (
     <div className="text-violet-700 min-h-screen flex items-center justify-center bg-violet-100">
-      <AboutBtn />
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-bold mb-4 text-violet-800">Login</h2>
         <form onSubmit={handleSubmit}>
