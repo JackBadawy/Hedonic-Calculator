@@ -134,12 +134,16 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
   const modalContent =
     isOpen && mounted
       ? createPortal(
-          <div className="text-hpal-100 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center fade-in">
+          <div
+            className="z-0 text-hpal-100 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center fade-in"
+            onClick={closeModal}
+          >
             <div
               className={`bg-hpal-500 p-6 rounded-lg slide-down mx-8 ${
                 modalOptions.className || ""
               }`}
               style={{ width: modalOptions.width, height: modalOptions.height }}
+              onClick={(e) => e.stopPropagation()}
             >
               {modalOptions.message && (
                 <h2 className="text-xl font-bold mb-4">
