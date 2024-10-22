@@ -8,6 +8,7 @@ import { HEvent } from "@/app/Types/hedon";
 import { useEffect } from "react";
 import LogoutBtn from "../Componants/Buttons/LogoutBtn";
 import IdleTimer from "../Componants/Auth/IdleTimer";
+import AboutBtn from "../Componants/Buttons/AboutBtn";
 
 export default function Main() {
   const { events, removeEvent, addEvent, fetchEvents } = useEvents();
@@ -36,6 +37,7 @@ export default function Main() {
 
   return (
     <div className="bg-violet-100 min-h-screen p-4">
+      <AboutBtn />
       <IdleTimer />
       <LogoutBtn />
       <AddEvent onAddEvent={handleAddEvent} />

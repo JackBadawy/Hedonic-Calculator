@@ -134,9 +134,9 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
   const modalContent =
     isOpen && mounted
       ? createPortal(
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="text-hpal-100 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center fade-in">
             <div
-              className={`bg-white p-6 rounded-lg ${
+              className={`bg-hpal-500 p-6 rounded-lg slide-down mx-8 ${
                 modalOptions.className || ""
               }`}
               style={{ width: modalOptions.width, height: modalOptions.height }}
@@ -150,7 +150,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
               <div className="mt-4 flex justify-end">
                 <button
                   onClick={closeModal}
-                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded mr-2"
+                  className="px-4 py-2 bg-hpal-100 text-hpal-400 rounded mr-2"
                 >
                   Cancel
                 </button>
