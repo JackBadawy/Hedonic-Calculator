@@ -72,30 +72,6 @@ The project is optimized for Server-Side Rendering:
 - Separation of server and client components for optimal performance
 - Implementation of Suspense and fallback components for improved loading experience
 
-## Project Structure
-
-```
-app/
-  Contexts/
-    EventsContext.tsx
-    ModalContext.tsx
-  Components/
-    Buttons/
-      AddEvent.tsx
-    Cards/
-      EventCard.tsx
-    Containers/
-      EventListContainer.tsx
-      EventListContainerClient.tsx
-    Modals/
-      NewEventForm.tsx
-  Types/
-    hedon.ts
-  layout.tsx
-  page.tsx
-  Providers.tsx
-```
-
 ## Backend
 
 The backend is built using Spring Boot and provides a RESTful API for managing events and courses of action, and user authentication.
