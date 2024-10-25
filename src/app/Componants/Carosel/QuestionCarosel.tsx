@@ -125,7 +125,7 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
         extent: 5,
         isPublic: false,
       });
-      setStep(1); // Go back to course description
+      setStep(1);
     } else {
       setStep(step + 1);
     }
