@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { HCourseOfAction } from "@/app/Types/hedon";
 import { getEventQuestions } from "@/app/Utilities/Questions";
 import QuestionCard from "../Cards/QuestionCard";
@@ -13,7 +13,14 @@ interface QuestionCarouselProps {
 
 const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
   const [step, setStep] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [eventDescription, setEventDescription] = useState("");
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [dimensions, setDimensions] = useState({
+    height: "auto",
+    width: "auto",
+  });
+
   const [currentCourse, setCurrentCourse] = useState<HCourseOfAction>({
     description: "",
     intensity: 5,
@@ -34,6 +41,25 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
     setCurrentCourse,
   });
 
+  useEffect(() => {
+    if (contentRef.current) {
+      const newHeight = contentRef.current.scrollHeight;
+      const newWidth = contentRef.current.scrollWidth;
+      setDimensions({
+        height: `${newHeight}px`,
+        width: `${newWidth}px`,
+      });
+    }
+  }, [step, currentCourse, eventDescription]);
+
+  const handleTransition = (nextStep: number) => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setStep(nextStep);
+      setIsTransitioning(false);
+    }, 200);
+  };
+
   const handleNext = () => {
     if (step === questions.length - 1) {
       setCoursesOfAction([...coursesOfAction, { ...currentCourse }]);
@@ -48,14 +74,14 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
         extent: 5,
         isPublic: false,
       });
-      setStep(1);
+      handleTransition(1);
     } else {
-      setStep(step + 1);
+      handleTransition(step + 1);
     }
   };
 
   const handleBack = () => {
-    setStep(Math.max(0, step - 1));
+    handleTransition(Math.max(0, step - 1));
   };
 
   const handleComplete = () => {
@@ -74,26 +100,43 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
   const currentQuestion = questions[step];
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto">
       {coursesOfAction.length > 0 && (
-        <div className="text-sm text-violet-600">
+        <div className="text-sm text-violet-600 mb-4">
           {coursesOfAction.length} course
           {coursesOfAction.length !== 1 ? "s" : ""} of action added
         </div>
       )}
 
-      <QuestionCard
-        question={currentQuestion.question}
-        type={currentQuestion.type}
-        value={currentQuestion.value}
-        onChange={currentQuestion.onChange}
-      />
+      <div
+        style={{
+          height: dimensions.height,
+          width: dimensions.width,
+          minWidth: "320px", // Set a minimum width
+          maxWidth: "100%", // Prevent overflow
+        }}
+        className="overflow-hidden transition-[height,width] duration-200 ease-in-out mx-auto"
+      >
+        <div
+          ref={contentRef}
+          className={`transform transition-opacity duration-200 ease-in-out ${
+            isTransitioning ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <QuestionCard
+            question={currentQuestion.question}
+            type={currentQuestion.type}
+            value={currentQuestion.value}
+            onChange={currentQuestion.onChange}
+          />
+        </div>
+      </div>
 
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mt-6">
         <button
           onClick={handleBack}
           className="px-4 py-2 text-violet-600 hover:bg-violet-50 rounded"
-          disabled={step === 0}
+          disabled={step === 0 || isTransitioning}
         >
           Back
         </button>
@@ -103,17 +146,11 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
         </div>
 
         <div className="flex gap-2">
-          <button
-            onClick={onCancel}
-            className="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded"
-          >
-            Cancel
-          </button>
-
           {coursesOfAction.length > 0 && step === 1 ? (
             <button
               onClick={handleComplete}
               className="px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700"
+              disabled={isTransitioning}
             >
               Complete
             </button>
@@ -121,7 +158,7 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
             <button
               onClick={handleNext}
               className="px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700"
-              disabled={!canProgress()}
+              disabled={!canProgress() || isTransitioning}
             >
               Next
             </button>
