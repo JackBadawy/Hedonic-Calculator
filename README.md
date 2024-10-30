@@ -125,6 +125,3 @@ The system automatically updates hedonic values and ideal courses:
 
 The application uses an H2 in-memory database for development and testing purposes and mySql for prod. The database configuration can be found in the `application.properties` file.
 
-## Live Demo
-
-TBA
