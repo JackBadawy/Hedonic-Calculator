@@ -2,7 +2,7 @@ import { HEvent } from "../Types/hedon";
 
 export async function fetchEvents(sessionToken: string): Promise<HEvent[]> {
   try {
-    const response = await fetch("http://localhost:8080/api/events", {
+    const response = await fetch(`${process.env.API_URL}/api/events`, {
       headers: {
         Authorization: `Bearer ${sessionToken}`,
       },
@@ -24,7 +24,7 @@ export async function removeEvent(
   sessionToken: string
 ): Promise<boolean> {
   try {
-    const response = await fetch(`http://localhost:8080/api/events/${id}`, {
+    const response = await fetch(`${process.env.API_URL}/api/events/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${sessionToken}`,
@@ -42,7 +42,7 @@ export async function addEvent(
   sessionToken: string
 ): Promise<HEvent | null> {
   try {
-    const response = await fetch("http://localhost:8080/api/events", {
+    const response = await fetch(`${process.env.API_URL}/api/events`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

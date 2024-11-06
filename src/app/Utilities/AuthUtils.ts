@@ -1,7 +1,7 @@
 export async function logoutUser(sessionToken: string): Promise<boolean> {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/auth/logout?sessionToken=${sessionToken}`,
+      `${process.env.API_URL}/api/auth/logout?sessionToken=${sessionToken}`,
       {
         method: "POST",
         headers: {

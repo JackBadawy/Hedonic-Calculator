@@ -2,17 +2,17 @@ import { useModal } from "@/app/Contexts/ModalContext";
 import NewEventForm from "../Modals/NewEventForm";
 import { HEvent } from "@/app/Types/hedon";
 
-interface AddEventProps {
-  onAddEvent: (event: HEvent) => Promise<void>;
-}
+// interface AddEventProps {
+//   onAddEvent: (event: HEvent) => Promise<void>;
+// }
 
-const AddEvent: React.FC<AddEventProps> = ({ onAddEvent }) => {
+const AddEvent: React.FC = () => {
   const { ModalBuilder } = useModal();
 
   const openEventModal = () => {
     new ModalBuilder()
       .setMessage("Add New Event")
-      .displayContent(<NewEventForm onSubmit={onAddEvent} />)
+      .displayContent(<NewEventForm />)
       .removeConfirmButton()
       .open();
   };
