@@ -2,11 +2,14 @@ import { HEvent } from "../Types/hedon";
 
 export async function fetchEvents(sessionToken: string): Promise<HEvent[]> {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/events`, {
-      headers: {
-        Authorization: `Bearer ${sessionToken}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/events`,
+      {
+        headers: {
+          Authorization: `Bearer ${sessionToken}`,
+        },
+      }
+    );
     if (response.ok) {
       return await response.json();
     } else {
@@ -24,12 +27,15 @@ export async function removeEvent(
   sessionToken: string
 ): Promise<boolean> {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/events/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${sessionToken}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/events/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${sessionToken}`,
+        },
+      }
+    );
     return response.ok;
   } catch (error) {
     console.error("Error removing event:", error);
@@ -42,14 +48,17 @@ export async function addEvent(
   sessionToken: string
 ): Promise<HEvent | null> {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/events`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${sessionToken}`,
-      },
-      body: JSON.stringify(event),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/events`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionToken}`,
+        },
+        body: JSON.stringify(event),
+      }
+    );
     if (response.ok) {
       return await response.json();
     }

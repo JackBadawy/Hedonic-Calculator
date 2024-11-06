@@ -16,16 +16,19 @@ export default function Register() {
     setError("");
 
     try {
-      const response = await fetch(`${process.env.API_URL}/api/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          username,
-          password,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            username,
+            password,
+          }),
+        }
+      );
 
       if (response.ok) {
         const loginResult = await login(username, password);
