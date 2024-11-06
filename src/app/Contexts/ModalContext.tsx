@@ -140,28 +140,42 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
     isOpen && mounted
       ? createPortal(
           <div
-            className={`z-0 text-hpal-100 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ${
+            className={`z-0 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ${
               isClosing ? "fade-out" : "fade-in"
             }`}
             onClick={closeModal}
           >
             <div
-              className={`bg-hpal-500 p-6 rounded-lg mx-8 ${
-                isClosing ? "slide-up" : "slide-down"
-              } ${modalOptions.className || ""}`}
-              style={{ width: modalOptions.width, height: modalOptions.height }}
+              className={`bg-hpal-500 text-hpal-100 rounded-lg mx-8
+                ${isClosing ? "slide-up" : "slide-down"}
+                ${modalOptions.className || ""}
+                grid transition-[grid-template-rows] duration-1000 ease-in-out
+              `}
+              style={{
+                width: modalOptions.width || "auto",
+                minWidth: "320px",
+                maxWidth: "90vw",
+                maxHeight: "90vh",
+                gridTemplateRows: "auto 1fr auto",
+              }}
               onClick={(e) => e.stopPropagation()}
             >
               {modalOptions.message && (
-                <h2 className="text-xl font-bold mb-4">
-                  {modalOptions.message}
-                </h2>
+                <div className="p-6 pb-0">
+                  <h2 className="text-xl font-bold">{modalOptions.message}</h2>
+                </div>
               )}
-              {modalOptions.content}
-              <div className="mt-4 flex justify-end">
+
+              <div className="min-h-0 p-6 overflow-auto">
+                <div className="transition-all duration-300 ease-in-out">
+                  {modalOptions.content}
+                </div>
+              </div>
+
+              <div className="p-4 flex justify-end gap-2 border-t border-hpal-400">
                 <button
                   onClick={closeModal}
-                  className="px-4 py-2 bg-hpal-100 text-hpal-500 rounded mr-2 font-bold"
+                  className="px-4 py-2 bg-hpal-100 text-hpal-500 rounded font-bold"
                 >
                   Cancel
                 </button>

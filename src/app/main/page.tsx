@@ -40,7 +40,7 @@ export default function Main() {
       <AboutBtn />
       <IdleTimer />
       <LogoutBtn />
-      <AddEvent onAddEvent={handleAddEvent} />
+      <AddEvent />
       <EventListContainerClient
         events={events}
         onRemoveEvent={handleRemoveEvent}
