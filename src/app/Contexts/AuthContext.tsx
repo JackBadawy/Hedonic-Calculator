@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useContext, useState, ReactNode } from "react";
+import { loginUser } from "../Utilities/AuthUtils";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -20,36 +21,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [sessionToken, setSessionToken] = useState<string | null>(null);
 
   const login = async (username: string, password: string) => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams({
-            username,
-            password,
-          }),
-        }
-      );
-
-      if (response.ok) {
-        const token = await response.text();
-        const cleanToken = token.replace(/^"|"$/g, "");
-        setSessionToken(cleanToken);
-        setIsAuthenticated(true);
-        return { success: true, message: "Login successful" };
-      } else {
-        const errorText = await response.text();
-        console.error("Login failed:", errorText);
-        return { success: false, message: `Login failed: ${errorText}` };
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      return { success: false, message: `Login error: ${error}` };
+    const result = await loginUser(username, password);
+    if (result.success && result.token) {
+      setSessionToken(result.token);
+      setIsAuthenticated(true);
     }
+    return result;
   };
 
   const logout = () => {
