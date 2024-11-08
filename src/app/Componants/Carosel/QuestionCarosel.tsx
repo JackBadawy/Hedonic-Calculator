@@ -135,13 +135,13 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
       <div className="flex justify-between items-center mt-6">
         <button
           onClick={handleBack}
-          className="px-4 py-2 text-violet-600 hover:bg-violet-50 rounded"
+          className="font-bold px-4 py-2 text-hpal-100 hover:bg-hpal-100 hover:text-hpal-500 rounded"
           disabled={step === 0 || isTransitioning}
         >
           Back
         </button>
 
-        <div className="text-sm text-violet-600">
+        <div className="text-sm text-hpal-100">
           Question {step + 1} of {questions.length}
         </div>
 
@@ -149,7 +149,7 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
           {coursesOfAction.length > 0 && step === 1 ? (
             <button
               onClick={handleComplete}
-              className="px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700"
+              className="px-4 py-2 bg-hpal-300 text-white rounded hover:bg-hpal-400"
               disabled={isTransitioning}
             >
               Complete
@@ -157,7 +157,7 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
           ) : (
             <button
               onClick={handleNext}
-              className="px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700"
+              className="font-bold px-4 py-2 bg-hpal-100 text-hpal-500 rounded hover:bg-hpal-500 hover:text-hpal-100 hover:border-hpal-100 hover:border-solid border-2 border-hpal-100"
               disabled={!canProgress() || isTransitioning}
             >
               Next

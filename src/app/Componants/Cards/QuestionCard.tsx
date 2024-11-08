@@ -66,8 +66,8 @@ const QuestionCard = ({
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm border border-violet-100">
-      <h3 className="text-lg font-medium text-violet-900 mb-4">{question}</h3>
+    <div className="bg-hpal-100 p-6 rounded-lg shadow-sm border border-violet-100">
+      <h3 className="text-lg font-medium text-hpal-500 mb-4">{question}</h3>
       {renderInput()}
     </div>
   );

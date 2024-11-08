@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useAuth } from "@/app/Contexts/AuthContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import AddEvent from "../Componants/Buttons/AddEvent";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -24,6 +25,7 @@ export default function Login() {
 
   return (
     <div className="text-hpal-500 min-h-screen flex items-center justify-center bg-hpal-200">
+      <AddEvent />
       <div className="bg-hpal-100 p-8 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-bold mb-4 ">Login</h2>
         <form onSubmit={handleSubmit}>
