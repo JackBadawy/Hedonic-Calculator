@@ -175,7 +175,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
               <div className="p-4 flex justify-end gap-2 border-t border-hpal-400">
                 <button
                   onClick={closeModal}
-                  className="px-4 py-2 bg-hpal-100 text-hpal-500 rounded font-bold"
+                  className="font-bold px-4 py-2 text-hpal-100 hover:bg-hpal-500 hover:text-hpal-100 hover:border-hpal-100 hover:border-solid border-2 border-hpal-500 rounded"
                 >
                   Cancel
                 </button>
