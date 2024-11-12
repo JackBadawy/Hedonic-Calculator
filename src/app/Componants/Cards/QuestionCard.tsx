@@ -19,7 +19,7 @@ const QuestionCard = ({
             type="text"
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            className="w-full p-2 border rounded-md focus:ring-2 focus:ring-violet-500"
+            className=" font-bold w-full p-2 border text-hpal-100 rounded-md focus:ring-2 focus:ring-hpal-500 outline-none bg-hpal-500"
             placeholder="Type your answer..."
           />
         );
