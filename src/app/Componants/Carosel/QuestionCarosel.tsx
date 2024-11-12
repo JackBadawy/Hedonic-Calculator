@@ -22,7 +22,6 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
     height: "auto",
     width: "auto",
   });
-  const [showDecisionCard, setShowDecisionCard] = useState(false);
 
   const [currentCourse, setCurrentCourse] = useState<HCourseOfAction>({
     description: "",
@@ -141,6 +140,9 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
     onComplete(finalEvent);
   };
 
+  const isQuestionCard = isEventDescriptionComplete && step > 0;
+  const questionNumber = step;
+
   return (
     <div className="mx-auto">
       {isEventDescriptionComplete && (
@@ -151,10 +153,9 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
             </h2>
           </div>
 
-          {currentCourse.description && (
+          {currentCourse.description && step > 0 && (
             <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-hpal-100 rounded-full" />
-              <p className="text-md text-hpal-100 break-words">
+              <p className="text-md text-hpal-100 ml-2">
                 {currentCourse.description}
               </p>
             </div>
@@ -205,9 +206,9 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
             Back
           </button>
 
-          {isEventDescriptionComplete && (
+          {isQuestionCard && (
             <div className="text-sm text-hpal-100">
-              Question {step + 1} of {courseQuestions.length}
+              Question {questionNumber} of {courseQuestions.length - 1}
             </div>
           )}
 
@@ -228,8 +229,7 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
                 onClick={handleComplete}
                 className="font-bold px-4 py-2 bg-hpal-300 text-white rounded hover:bg-hpal-100 hover:text-hpal-500 w-full max-w-xs"
               >
-                Submit ({coursesOfAction.length} Course
-                {coursesOfAction.length !== 1 ? "s" : ""})
+                Submit
               </button>
             </div>
           )}
