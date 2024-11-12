@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { HCourseOfAction } from "@/app/Types/hedon";
 import { getEventQuestions } from "@/app/Utilities/Questions";
 import QuestionCard from "../Cards/QuestionCard";
+import QuestionContainer from "../QuestionComps/QuestionContainer";
+import NavigationControls from "../QuestionComps/NavigationControls";
+import ProgressHeader from "../QuestionComps/ProgressHeader";
 
 interface QuestionCarouselProps {
   onComplete: (event: {
@@ -140,100 +143,40 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
     onComplete(finalEvent);
   };
 
-  const isQuestionCard = isEventDescriptionComplete && step > 0;
-  const questionNumber = step;
-
   return (
     <div className="mx-auto">
-      {isEventDescriptionComplete && (
-        <div className="space-y-2 mb-4">
-          <div>
-            <h2 className="text-xl font-semibold text-hpal-100 break-words">
-              {eventDescription}
-            </h2>
-          </div>
+      <ProgressHeader
+        eventDescription={eventDescription}
+        currentCourse={currentCourse}
+        coursesOfAction={coursesOfAction}
+        isEventDescriptionComplete={isEventDescriptionComplete}
+        step={step}
+      />
 
-          {currentCourse.description && step > 0 && (
-            <div className="flex items-center gap-2">
-              <p className="text-md text-hpal-100 ml-2">
-                {currentCourse.description}
-              </p>
-            </div>
-          )}
-
-          {coursesOfAction.length > 0 && (
-            <div className="text-sm text-hpal-100">
-              {coursesOfAction.length} course
-              {coursesOfAction.length !== 1 ? "s" : ""} of action added
-            </div>
-          )}
-        </div>
-      )}
-
-      <div
-        style={{
-          height: dimensions.height,
-          width: dimensions.width,
-          minWidth: "320px",
-          maxWidth: "100%",
-        }}
-        className="overflow-hidden transition-[height,width] duration-200 ease-in-out mx-auto"
+      <QuestionContainer
+        dimensions={dimensions}
+        isTransitioning={isTransitioning}
+        contentRef={contentRef}
       >
-        <div
-          ref={contentRef}
-          className={`transform transition-opacity duration-200 ease-in-out ${
-            isTransitioning ? "opacity-0" : "opacity-100"
-          }`}
-        >
-          <QuestionCard
-            question={currentQuestion.question}
-            type={currentQuestion.type}
-            value={currentQuestion.value}
-            onChange={currentQuestion.onChange}
-          />
-        </div>
-      </div>
+        <QuestionCard
+          question={currentQuestion.question}
+          type={currentQuestion.type}
+          value={currentQuestion.value}
+          onChange={currentQuestion.onChange}
+        />
+      </QuestionContainer>
 
-      <div className="flex flex-col gap-4 mt-6">
-        <div className="flex justify-between items-center">
-          <button
-            onClick={handleBack}
-            className="font-bold px-4 py-2 text-hpal-100 hover:bg-hpal-500 hover:text-hpal-100 hover:border-hpal-100 hover:border-solid border-2 border-hpal-500 rounded"
-            disabled={
-              (!isEventDescriptionComplete && step === 0) || isTransitioning
-            }
-          >
-            Back
-          </button>
-
-          {isQuestionCard && (
-            <div className="text-sm text-hpal-100">
-              Question {questionNumber} of {courseQuestions.length - 1}
-            </div>
-          )}
-
-          <button
-            onClick={handleNext}
-            className="font-bold px-4 py-2 bg-hpal-100 text-hpal-500 rounded hover:bg-hpal-500 hover:text-hpal-100 hover:border-hpal-100 hover:border-solid border-2 border-hpal-100"
-            disabled={!canProgress() || isTransitioning}
-          >
-            Next
-          </button>
-        </div>
-
-        {coursesOfAction.length > 0 &&
-          isEventDescriptionComplete &&
-          step === 0 && (
-            <div className="flex justify-center">
-              <button
-                onClick={handleComplete}
-                className="font-bold px-4 py-2 bg-hpal-300 text-white rounded hover:bg-hpal-100 hover:text-hpal-500 w-full max-w-xs"
-              >
-                Submit
-              </button>
-            </div>
-          )}
-      </div>
+      <NavigationControls
+        step={step}
+        isEventDescriptionComplete={isEventDescriptionComplete}
+        isTransitioning={isTransitioning}
+        coursesOfAction={coursesOfAction}
+        questionCount={courseQuestions.length}
+        canProgress={canProgress()}
+        onBack={handleBack}
+        onNext={handleNext}
+        onComplete={handleComplete}
+      />
     </div>
   );
 };
