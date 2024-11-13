@@ -25,7 +25,6 @@ export default function Login() {
 
   return (
     <div className="text-hpal-500 min-h-screen flex items-center justify-center bg-hpal-200">
-      <AddEvent />
       <div className="bg-hpal-100 p-8 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-bold mb-4 ">Login</h2>
         <form onSubmit={handleSubmit}>
@@ -38,7 +37,7 @@ export default function Login() {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="outline-none mt-1 block w-full rounded-md border-violet-300 shadow-sm focus:ring focus:ring-hpal-200"
+              className="font-semibold p-0.5 px-1 bg-hpal-200 outline-none mt-1 block w-full rounded-md shadow-sm"
               required
             />
           </div>
@@ -51,7 +50,7 @@ export default function Login() {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full rounded-md outline-none shadow-sm focus:ring focus:ring-hpal-200"
+              className="p-0.5 px-1 bg-hpal-200 mt-1 block w-full rounded-md outline-none shadow-sm"
               required
             />
           </div>
