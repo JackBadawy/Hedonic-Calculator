@@ -1,14 +1,14 @@
 export type HCourseOfAction = {
   description: string;
-  intensity: number;
-  duration: number;
-  certainty: number;
-  propinquity: number;
-  fecundity: number;
-  purity: number;
-  extent: number;
-  isPublic: boolean;
-  hedonicValue?: number;
+  intensity: number | null;
+  duration: number | null;
+  certainty: number | null;
+  propinquity: number | null;
+  fecundity: number | null;
+  purity: number | null;
+  extent: number | null;
+  isPublic: boolean | null;
+  hedonicValue?: number | null;
 };
 
 export type HEvent = {

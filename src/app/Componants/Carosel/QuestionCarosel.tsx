@@ -28,15 +28,16 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
 
   const [currentCourse, setCurrentCourse] = useState<HCourseOfAction>({
     description: "",
-    intensity: 5,
-    duration: 5,
-    certainty: 5,
-    propinquity: 5,
-    fecundity: 5,
-    purity: 5,
-    extent: 5,
+    intensity: NaN,
+    duration: NaN,
+    certainty: NaN,
+    propinquity: NaN,
+    fecundity: NaN,
+    purity: NaN,
+    extent: NaN,
     isPublic: false,
   });
+
   const [coursesOfAction, setCoursesOfAction] = useState<HCourseOfAction[]>([]);
 
   const questions = getEventQuestions({
@@ -97,13 +98,13 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
       setCoursesOfAction([...coursesOfAction, { ...currentCourse }]);
       setCurrentCourse({
         description: "",
-        intensity: 5,
-        duration: 5,
-        certainty: 5,
-        propinquity: 5,
-        fecundity: 5,
-        purity: 5,
-        extent: 5,
+        intensity: NaN,
+        duration: NaN,
+        certainty: NaN,
+        propinquity: NaN,
+        fecundity: NaN,
+        purity: NaN,
+        extent: NaN,
         isPublic: false,
       });
       handleTransition(0);
@@ -127,8 +128,23 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
 
   const canProgress = () => {
     if (!isEventDescriptionComplete) return eventDescription.trim() !== "";
-    if (step === 0) return currentCourse.description.trim() !== "";
-    return true;
+
+    const currentQuestion = courseQuestions[step];
+    const value = currentCourse[currentQuestion.key as keyof HCourseOfAction];
+
+    if (currentQuestion.type === "text") {
+      return value?.toString().trim() !== "";
+    }
+
+    if (currentQuestion.type === "agreement") {
+      return typeof value === "number" && !isNaN(value);
+    }
+
+    if (currentQuestion.type === "boolean") {
+      return true;
+    }
+
+    return false;
   };
 
   const currentQuestion = !isEventDescriptionComplete
