@@ -160,6 +160,7 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
       >
         <QuestionCard
           question={currentQuestion.question}
+          example={currentQuestion.example}
           type={currentQuestion.type}
           value={currentQuestion.value}
           onChange={currentQuestion.onChange}

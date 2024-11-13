@@ -20,7 +20,7 @@ const ProgressHeader = ({
   return (
     <div className="space-y-2 mb-4">
       <div>
-        <h2 className="text-xl font-semibold text-hpal-100 break-words">
+        <h2 className="text-l font-semibold text-hpal-100 break-words">
           {eventDescription}
         </h2>
       </div>

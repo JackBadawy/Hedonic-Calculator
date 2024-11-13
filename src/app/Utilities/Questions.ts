@@ -16,6 +16,7 @@ export const getEventQuestions = ({
   {
     key: "eventDescription",
     question: "What situation are you trying to evaluate?",
+    example: "eg: 'I am considering buying a car'",
     type: "text" as const,
     value: eventDescription,
     onChange: setEventDescription,
@@ -23,6 +24,7 @@ export const getEventQuestions = ({
   {
     key: "courseDescription",
     question: "What is a possible course of action you could take?",
+    example: "eg: 'I could not buy a car'",
     type: "text" as const,
     value: currentCourse.description,
     onChange: (value: string) =>

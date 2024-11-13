@@ -1,5 +1,6 @@
 interface QuestionCardProps {
   question: string;
+  example?: string;
   type: "text" | "agreement" | "boolean";
   value: any;
   onChange: (value: any) => void;
@@ -7,6 +8,7 @@ interface QuestionCardProps {
 
 const QuestionCard = ({
   question,
+  example,
   type,
   value,
   onChange,
@@ -68,6 +70,7 @@ const QuestionCard = ({
   return (
     <div className="bg-hpal-100 p-6 rounded-lg shadow-sm border border-violet-100">
       <h3 className="text-lg font-medium text-hpal-500 mb-4">{question}</h3>
+      {example && <h4 className="text-hpal-500 mb-2">{example}</h4>}
       {renderInput()}
     </div>
   );
