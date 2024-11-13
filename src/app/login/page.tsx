@@ -27,8 +27,8 @@ export default function Login() {
     <div className="text-hpal-500 min-h-screen flex items-center justify-center bg-hpal-200">
       <div className="bg-hpal-100 p-8 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-bold mb-4 ">Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+        <form onSubmit={handleSubmit} className="" autoComplete="off">
+          <div className="mb-4 text-2xl">
             <label htmlFor="username" className="block text-sm font-medium">
               Username
             </label>
@@ -50,14 +50,15 @@ export default function Login() {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="p-0.5 px-1 bg-hpal-200 mt-1 block w-full rounded-md outline-none shadow-sm"
+              className="transition-colors placeholder:text-2xl bg-hpal-200 focus:bg-hpal-300 p-0.5 px-1 mt-1 block w-full rounded-md outline-none shadow-sm"
               required
+              autoComplete="off"
             />
           </div>
           {error && <p className="text-red-500 mb-4">{error}</p>}
           <button
             type="submit"
-            className="w-full bg-hpal-300 text-white rounded-md py-2 px-4 hover:bg-hpal-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-opacity-50"
+            className="w-full bg-hpal-300 text-hpal-100 rounded-md py-2 px-4 hover:bg-hpal-400 transition-colors"
           >
             Login
           </button>
