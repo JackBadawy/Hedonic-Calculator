@@ -9,19 +9,20 @@ import { useEffect } from "react";
 import LogoutBtn from "../Componants/Buttons/LogoutBtn";
 import IdleTimer from "../Componants/Auth/IdleTimer";
 import AboutBtn from "../Componants/Buttons/AboutBtn";
+import MainNav from "./MainNav";
 
 export default function Main() {
   const { events, removeEvent, addEvent, fetchEvents } = useEvents();
-  const { sessionToken } = useAuth();
+  const { sessionToken, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!sessionToken) {
+    if (!loading && !sessionToken) {
       router.push("/login");
     } else {
       fetchEvents();
     }
-  }, [sessionToken, router, fetchEvents]);
+  }, [loading, sessionToken, router, fetchEvents]);
 
   const handleRemoveEvent = async (id: number) => {
     await removeEvent(id);
@@ -36,10 +37,10 @@ export default function Main() {
   }
 
   return (
-    <div className="bg-violet-100 min-h-screen p-4">
+    <div className="bg-hpal-200 min-h-screen p-4">
+      <MainNav />
       <AboutBtn />
       <IdleTimer />
-      <LogoutBtn />
       <AddEvent />
       <EventListContainerClient
         events={events}

@@ -19,7 +19,7 @@ const AddEvent: React.FC = () => {
 
   return (
     <button
-      className="rounded m-2 px-2 py-1 bg-violet-950 text-violet-400"
+      className="rounded px-2 py-1 bg-hpal-500 hover:bg-hpal-400 text-hpal-200 font-bold hover:text-hpal-100 transition-colors"
       onClick={openEventModal}
     >
       Add Event

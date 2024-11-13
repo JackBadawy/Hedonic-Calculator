@@ -12,7 +12,9 @@ const EventListContainer: React.FC<EventListContainerProps> = ({
 }) => {
   return (
     <div className="mt-4">
-      <h2 className="text-xl font-semibold mb-4 text-violet-900">Events</h2>
+      <h2 className="text-2xl font-bold mb-4 text-hpal-500 underline">
+        Events:
+      </h2>
       {events.length === 0 ? (
         <p className="text-violet-900">No events added yet.</p>
       ) : (
