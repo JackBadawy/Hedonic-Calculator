@@ -149,7 +149,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
               className={`bg-hpal-500 text-hpal-100 rounded-lg mx-8
                 ${isClosing ? "slide-up" : "slide-down"}
                 ${modalOptions.className || ""}
-                grid transition-[grid-template-rows] duration-1000 ease-in-out
+                grid transition-[grid-template-rows] duration-1000 ease-in-out 
               `}
               style={{
                 width: modalOptions.width || "auto",
@@ -175,7 +175,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
               <div className="p-4 flex justify-end gap-2 border-t border-hpal-400">
                 <button
                   onClick={closeModal}
-                  className="font-bold px-4 py-2 text-hpal-100 hover:bg-hpal-500 hover:text-hpal-100 hover:border-hpal-100 hover:border-solid border-2 border-hpal-500 rounded"
+                  className="transition-colors font-bold px-4 py-2 text-hpal-100 hover:bg-hpal-500 hover:text-hpal-100 hover:border-hpal-100 hover:border-solid border-2 border-hpal-500 rounded"
                 >
                   Cancel
                 </button>

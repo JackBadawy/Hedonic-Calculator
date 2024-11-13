@@ -30,7 +30,7 @@ const NavigationControls = ({
       <div className="flex justify-between items-center">
         <button
           onClick={onBack}
-          className="font-bold px-4 py-2 text-hpal-100 hover:bg-hpal-500 hover:text-hpal-100 hover:border-hpal-100 hover:border-solid border-2 border-hpal-500 rounded"
+          className="transition-colors font-bold px-4 py-2 text-hpal-100 hover:bg-hpal-500 hover:text-hpal-100 hover:border-hpal-100 hover:border-solid border-2 border-hpal-500 rounded"
           disabled={
             (!isEventDescriptionComplete && step === 0) || isTransitioning
           }
@@ -46,7 +46,7 @@ const NavigationControls = ({
 
         <button
           onClick={onNext}
-          className="font-bold px-4 py-2 bg-hpal-100 text-hpal-500 rounded hover:bg-hpal-500 hover:text-hpal-100 hover:border-hpal-100 hover:border-solid border-2 border-hpal-100"
+          className="transition-colors font-bold px-4 py-2 bg-hpal-100 text-hpal-500 rounded hover:bg-hpal-500 hover:text-hpal-100 hover:border-hpal-100 hover:border-solid border-2 border-hpal-100"
           disabled={!canProgress || isTransitioning}
         >
           Next
@@ -59,7 +59,7 @@ const NavigationControls = ({
           <div className="flex justify-center">
             <button
               onClick={onComplete}
-              className="font-bold px-4 py-2 bg-hpal-300 text-white rounded hover:bg-hpal-100 hover:text-hpal-500 w-full max-w-xs"
+              className="transition-colors font-bold px-4 py-2 bg-hpal-300 text-white rounded hover:bg-hpal-100 hover:text-hpal-500 w-full max-w-xs"
             >
               Submit
             </button>
