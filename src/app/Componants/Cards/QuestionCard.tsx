@@ -41,8 +41,8 @@ const QuestionCard = ({
               >
                 <input
                   type="radio"
-                  checked={value === 10 - index * 2}
-                  onChange={() => onChange(10 - index * 2)}
+                  checked={value === 2 - index}
+                  onChange={() => onChange(2 - index)}
                   className="w-4 h-4 text-violet-600"
                 />
                 <span className="text-sm text-gray-700">{option}</span>

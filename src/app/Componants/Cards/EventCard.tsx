@@ -27,7 +27,10 @@ const EventCard: React.FC<EventCardProps> = ({ event, onRemove }) => {
             <TTable course={course} />
             <div className="mt-4 border-t border-hpal-300 pt-4">
               <p className="text-sm font-semibold">
-                Hedonic Value: {course.hedonicValue} Hedons
+                Hedonic Value: {course.hedonicValue}{" "}
+                {course.hedonicValue && course.hedonicValue < 0
+                  ? "Dolors"
+                  : "Hedons"}
               </p>
               <p className="text-sm">
                 Public Impact: {course.isPublic ? "Yes" : "No"}
