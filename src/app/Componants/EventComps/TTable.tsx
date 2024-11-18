@@ -94,7 +94,7 @@ const TTable: React.FC<TTableProps> = ({ course }) => {
   const painEffects = effects.filter((effect) => effect.value < 0);
 
   const getEffectClasses = (value: number) => {
-    const baseClasses = "text-sm";
+    const baseClasses = "text-xs";
     switch (value) {
       case 2:
         return `${baseClasses} text-green-300 font-bold`;
@@ -105,15 +105,17 @@ const TTable: React.FC<TTableProps> = ({ course }) => {
       case -2:
         return `${baseClasses} text-red-300 font-bold`;
       default:
-        return "text-sm";
+        return "text-xs";
     }
   };
 
   return (
-    <div className="grid grid-cols-2 gap-4 border-t border-hpal-300  mt-4">
-      <div className="border-r border-hpal-300 pr-4">
-        <h4 className="text-lg font-semibold mb-3 text-green-400">Pleasure</h4>
-        <ul className="space-y-2">
+    <div className="h-[168px]  grid grid-cols-2 gap-1 border-t border-hpal-400 mt-4">
+      <div className="border-r border-hpal-400 pr-4  ">
+        <h4 className="text-lg font-semibold mb-1 text-green-400 text-center">
+          Pleasure
+        </h4>
+        <ul className="space-y-1 flex flex-col justify-between">
           {pleasureEffects.map((effect, index) => (
             <li key={index} className={getEffectClasses(effect.value)}>
               • {effect.interpretation}
@@ -121,9 +123,11 @@ const TTable: React.FC<TTableProps> = ({ course }) => {
           ))}
         </ul>
       </div>
-      <div className="pl-4">
-        <h4 className="text-lg font-semibold mb-3 text-red-400">Pain</h4>
-        <ul className="space-y-2">
+      <div className="pl-1 ">
+        <h4 className="text-lg font-semibold mb-1 text-red-400 text-center">
+          Pain
+        </h4>
+        <ul className="space-y-1">
           {painEffects.map((effect, index) => (
             <li key={index} className={getEffectClasses(effect.value)}>
               • {effect.interpretation}
