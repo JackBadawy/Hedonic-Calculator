@@ -1,10 +1,5 @@
 import { useModal } from "@/app/Contexts/ModalContext";
 import NewEventForm from "../Modals/NewEventForm";
-import { HEvent } from "@/app/Types/hedon";
-
-// interface AddEventProps {
-//   onAddEvent: (event: HEvent) => Promise<void>;
-// }
 
 const AddEvent: React.FC = () => {
   const { ModalBuilder } = useModal();
