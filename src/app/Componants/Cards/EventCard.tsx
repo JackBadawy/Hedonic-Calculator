@@ -1,5 +1,5 @@
-import { HEvent, HCourseOfAction } from "@/app/Types/hedon";
-import { calculateUtility } from "@/app/Utilities/UtilityFuncs";
+import { HEvent } from "@/app/Types/hedon";
+import TTable from "../EventComps/TTable";
 
 interface EventCardProps {
   event: HEvent;
@@ -24,21 +24,18 @@ const EventCard: React.FC<EventCardProps> = ({ event, onRemove }) => {
             className="mt-2 p-2 bg-hpal-500 rounded flex flex-col"
           >
             <p className="font-medium">{course.description}</p>
-            <div className="flex flex-wrap w-80 gap-4">
-              <p className="text-sm">Intensity: {course.intensity}</p>
-              <p className="text-sm">Duration: {course.duration}</p>
-              <p className="text-sm">Certainty: {course.certainty}</p>
-              <p className="text-sm">Propinquity: {course.propinquity}</p>
-              <p className="text-sm">Fecundity: {course.fecundity}</p>
-              <p className="text-sm">Purity: {course.purity}</p>
-              <p className="text-sm">Extent: {course.extent}</p>
+            <TTable course={course} />
+            <div className="mt-4 border-t border-hpal-300 pt-4">
+              <p className="text-sm font-semibold">
+                Hedonic Value: {course.hedonicValue}{" "}
+                {course.hedonicValue && course.hedonicValue < 0
+                  ? "Dolors"
+                  : "Hedons"}
+              </p>
+              <p className="text-sm">
+                Public Impact: {course.isPublic ? "Yes" : "No"}
+              </p>
             </div>
-            <p className="text-sm font-semibold mt-2">
-              Hedonic Value: {course.hedonicValue} Hedons
-            </p>
-            <p className="text-sm">
-              Public Impact: {course.isPublic ? "Yes" : "No"}
-            </p>
           </div>
         ))}
       </div>

@@ -61,10 +61,10 @@ const AboutHcalc = () => {
 
       <h3 className="text-xl font-semibold mt-4">How to Use the Calculator</h3>
       <p>
-        For each potential course of action, rate the seven aspects on a scale
-        of 1-10. The calculator will compute the total utility value to help you
-        make decisions that maximize pleasure and minimize pain. The higher the
-        total score, the more beneficial the action is predicted to be.
+        For each potential course of action, fill out each multiple choice
+        question. The calculator will compute the total utility value to help
+        you make decisions that maximize pleasure and minimize pain. The higher
+        the total score, the more beneficial the action is predicted to be.
       </p>
 
       <p className="mt-4 text-sm italic">
