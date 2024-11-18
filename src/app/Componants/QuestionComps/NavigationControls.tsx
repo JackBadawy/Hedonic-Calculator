@@ -1,4 +1,5 @@
 import { HCourseOfAction } from "@/app/Types/hedon";
+import { useEffect } from "react";
 
 interface NavigationControlsProps {
   step: number;
@@ -24,6 +25,19 @@ const NavigationControls = ({
   onComplete,
 }: NavigationControlsProps) => {
   const isQuestionCard = isEventDescriptionComplete && step > 0;
+
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === "Enter" && canProgress && !isTransitioning) {
+        if (document.activeElement?.tagName !== "BUTTON") {
+          onNext();
+        }
+      }
+    };
+
+    window.addEventListener("keypress", handleKeyPress);
+    return () => window.removeEventListener("keypress", handleKeyPress);
+  }, [canProgress, isTransitioning, onNext]);
 
   return (
     <div className="flex flex-col gap-4 mt-6">
