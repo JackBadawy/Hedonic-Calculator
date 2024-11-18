@@ -1,6 +1,6 @@
 import { useAuth } from "@/app/Contexts/AuthContext";
 import { handleAuthSubmit } from "@/app/Utilities/AuthUtils";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import AuthButton from "./AuthButton";
 import AuthErrorMessage from "./AuthErrorMessage";

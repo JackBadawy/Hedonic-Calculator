@@ -16,7 +16,7 @@ const EventListContainer: React.FC<EventListContainerProps> = ({
         Events:
       </h2>
       {events.length === 0 ? (
-        <p className="text-violet-900">No events added yet.</p>
+        <p className="text-hpal-500">No events added yet.</p>
       ) : (
         <div className="flex flex-wrap gap-3">
           {children ||

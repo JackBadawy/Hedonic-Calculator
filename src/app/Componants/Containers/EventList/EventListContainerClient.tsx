@@ -14,7 +14,7 @@ const EventListContainerClient: React.FC<EventListContainerClientProps> = ({
   return (
     <EventListContainer events={events}>
       {events.length === 0 ? (
-        <p className="text-black">No events added yet.</p>
+        <p className="text-hpal-500">No events added yet.</p>
       ) : (
         events.map((event) => (
           <EventCard

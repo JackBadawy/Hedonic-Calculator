@@ -96,6 +96,7 @@ const QuestionCarousel = ({ onComplete, onCancel }: QuestionCarouselProps) => {
 
     if (step === courseQuestions.length - 1) {
       setCoursesOfAction([...coursesOfAction, { ...currentCourse }]);
+      console.log(coursesOfAction);
       setCurrentCourse({
         description: "",
         intensity: NaN,
