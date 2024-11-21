@@ -41,7 +41,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode }) => {
   };
 
   return (
-    <AuthContainer>
+    <>
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
       <form onSubmit={handleSubmit} autoComplete="off">
         <AuthFormInput
@@ -64,7 +64,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode }) => {
         <AuthButton text={title} />
       </form>
       <AuthLink href={linkHref} text={linkText} />
-    </AuthContainer>
+    </>
   );
 };
 
