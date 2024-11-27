@@ -12,6 +12,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   sessionToken: string | null;
   loading: boolean;
+  username: string;
   login: (
     username: string,
     password: string
@@ -27,7 +28,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [sessionToken, setSessionToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-
+  const [username, setUsername] = useState("");
   useEffect(() => {
     const storedToken = localStorage.getItem("sessionToken");
     if (storedToken) {
@@ -42,6 +43,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     if (result.success && result.token) {
       localStorage.setItem("sessionToken", result.token);
       setSessionToken(result.token);
+      setUsername(username);
       setIsAuthenticated(true);
     }
     return result;
@@ -55,7 +57,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, sessionToken, loading, login, logout }}
+      value={{
+        isAuthenticated,
+        sessionToken,
+        loading,
+        login,
+        logout,
+        username,
+      }}
     >
       {children}
     </AuthContext.Provider>
