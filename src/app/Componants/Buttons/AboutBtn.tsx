@@ -13,12 +13,14 @@ const AboutBtn = () => {
   };
   return (
     <div className="flex justify-center">
-      <button
-        className="transition-colors bg-hpal-500 hover:bg-hpal-400 p-2 rounded text-hpal-200 hover:text-hpal-100 font-bold"
-        onClick={openAboutModal}
-      >
-        About
-      </button>
+      <div className="bg-hpal-500 p-1 rounded-lg ">
+        <button
+          className="rounded-md px-3 transition-colors bg-hpal-400 hover:bg-hpal-300 p-2 rounded text-hpal-200 hover:text-hpal-100 font-bold"
+          onClick={openAboutModal}
+        >
+          ?
+        </button>
+      </div>
     </div>
   );
 };
