@@ -31,15 +31,17 @@ export default function Main() {
   }
 
   return (
-    <div className="bg-hpal-200 min-h-screen p-4">
+    <div className="bg-hpal-200 min-h-screen">
       <HNav />
       <AboutBtn />
       <IdleTimer />
-      <AddEvent />
-      <EventListContainerClient
-        events={events}
-        onRemoveEvent={handleRemoveEvent}
-      />
+      <div className="p-4">
+        <AddEvent />
+        <EventListContainerClient
+          events={events}
+          onRemoveEvent={handleRemoveEvent}
+        />
+      </div>
     </div>
   );
 }

@@ -20,7 +20,7 @@ const LogoutBtn = () => {
 
   return (
     <button
-      className="bg-hpal-500 text-hpal-200 hover:text-hpal-100 font-bold px-4 py-2 rounded hover:bg-hpal-400 transition-colors"
+      className="bg-hpal-400 text-hpal-200 hover:text-hpal-100 font-bold px-4 py-2 rounded hover:bg-hpal-300 transition-colors"
       onClick={handleLogout}
     >
       Logout
