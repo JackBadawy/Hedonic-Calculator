@@ -1,6 +1,6 @@
 import { HEvent } from "@/app/Types/hedon";
 import TTable from "../EventComps/TTable";
-import EventCarousel from "../EventComps/EventCarousel";
+import CourseCarousel from "../EventComps/CourseCarousel";
 
 interface EventCardProps {
   event: HEvent;
@@ -21,7 +21,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, onRemove }) => {
           </p>
         </div>
       </div>
-      <EventCarousel event={event} />
+      <CourseCarousel event={event} />
       <div>
         <button
           onClick={onRemove}

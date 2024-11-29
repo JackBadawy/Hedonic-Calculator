@@ -1,11 +1,11 @@
 import { HEvent } from "@/app/Types/hedon";
 import TTable from "./TTable";
 
-interface EventCaroselProps {
+interface CourseCaroselProps {
   event: HEvent;
 }
 
-const EventCarousel: React.FC<EventCaroselProps> = ({ event }) => {
+const CourseCarousel: React.FC<CourseCaroselProps> = ({ event }) => {
   return (
     <div className="mt-4 flex flex-col flex-wrap gap-2 ">
       {event.coursesOfAction.map((course, index) => (
@@ -39,4 +39,4 @@ const EventCarousel: React.FC<EventCaroselProps> = ({ event }) => {
   );
 };
 
-export default EventCarousel;
+export default CourseCarousel;
