@@ -1,5 +1,6 @@
 import { HEvent } from "@/app/Types/hedon";
 import TTable from "../EventComps/TTable";
+import EventCarousel from "../EventComps/EventCarousel";
 
 interface EventCardProps {
   event: HEvent;
@@ -20,28 +21,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, onRemove }) => {
           </p>
         </div>
       </div>
-      <div className="mt-4 flex flex-wrap gap-2 ">
-        {event.coursesOfAction.map((course, index) => (
-          <div
-            key={index}
-            className="w-[508px] mt-2 h-72 p-2 bg-hpal-500 rounded flex flex-col "
-          >
-            <p className="font-medium">{course.description}</p>
-            <TTable course={course} />
-            <div className="px-2 mt-4 border-t border-hpal-400 pt-4 flex justify-between">
-              <p className="text-sm font-semibold">
-                {course.hedonicValue}{" "}
-                {course.hedonicValue && course.hedonicValue < 0
-                  ? "Dolors"
-                  : "Hedons"}
-              </p>
-              <p className="text-sm">
-                {course.isPublic ? "Public " : "Private "}Impact
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <EventCarousel event={event} />
       <div>
         <button
           onClick={onRemove}
