@@ -50,8 +50,12 @@ const CourseCarousel: React.FC<CourseCaroselProps> = ({ event }) => {
   const course = event.coursesOfAction[navData.curCourse - 1];
 
   return (
-    <div className="mt-4 flex flex-col flex-wrap gap-2 ">
-      <div className="flex justify-end gap-2">
+    <div className="mt-2 flex flex-col flex-wrap gap-2 ">
+      <div
+        className={`flex justify-end gap-2 items-center ${
+          navData.courseCount == 1 && "invisible"
+        }`}
+      >
         <CourseNavBtn content="&#11164;" onClick={() => onClick("&#11164;")} />
         <div>
           {navData.curCourse}/{navData.courseCount}
@@ -59,8 +63,11 @@ const CourseCarousel: React.FC<CourseCaroselProps> = ({ event }) => {
         <CourseNavBtn content="&#11166;" onClick={() => onClick("&#11166;")} />
       </div>
 
-      <div className="w-[508px] mt-2 h-72 p-2 bg-hpal-500 rounded flex flex-col ">
-        <p className="font-medium">{course.description}</p>
+      <div className="w-[508px] mt-0.5 h-72 p-2 bg-hpal-500 rounded flex flex-col ">
+        <p className="font-medium">
+          {course.description}
+          {course.id}
+        </p>
         <TTable course={course} />
         <div className="px-2 mt-4 border-t border-hpal-400 pt-4 flex justify-between">
           <p className="text-sm font-semibold">
