@@ -1,5 +1,5 @@
 export type HCourseOfAction = {
-  id: number;
+  id?: number;
   description: string;
   intensity: number | null;
   duration: number | null;
@@ -13,7 +13,7 @@ export type HCourseOfAction = {
 };
 
 export type HEvent = {
-  id: number;
+  id?: number;
   description: string;
   coursesOfAction: HCourseOfAction[];
   idealCourse?: HCourseOfAction;
