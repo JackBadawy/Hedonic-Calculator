@@ -83,7 +83,8 @@ const CourseCarousel: React.FC<CourseCaroselProps> = ({ event }) => {
         <TTable course={course} />
         <div className="px-2 mt-4 border-t border-hpal-400 pt-4 flex justify-between">
           <p className="text-sm font-semibold">
-            {course.hedonicValue && Math.abs(course.hedonicValue)}{" "}
+            {course.hedonicValue &&
+              Math.round(Math.abs(course.hedonicValue) * 10) / 10}{" "}
             {course.hedonicValue && course.hedonicValue < 0
               ? "Dolors"
               : "Hedons"}
