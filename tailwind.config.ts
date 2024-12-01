@@ -22,6 +22,15 @@ const config: Config = {
           500: "#011638",
         },
       },
+      animation: {
+        shimmer: "shimmer 12s linear infinite",
+      },
+      keyframes: {
+        shimmer: {
+          from: { backgroundPosition: "0 0" },
+          to: { backgroundPosition: "-300% 0" },
+        },
+      },
     },
   },
   plugins: [],

@@ -10,10 +10,15 @@ interface EventCardProps {
 const EventCard: React.FC<EventCardProps> = ({ event, onRemove }) => {
   return (
     <div className="w-[560px] bg-hpal-400 p-4 overflow-hidden rounded-lg shadow-md mb-4 text-hpal-100 flex flex-col">
-      <div className="bg-hpal-500 m-[-16px] mb-0 p-4 pb-0">
-        <h3 className="text-lg font-semibold mb-2">{event.description}</h3>
+      <div className="bg-hpal-500 m-[-16px] mb-0 p-4 pt-0 pb-0">
+        <h3 className="text-lg font-semibold py-2">{event.description}</h3>
+        <hr className="mb-2 border-hpal-400 mx-[-16px]" />
         <div className="flex justify-between">
-          <p className="text-sm mb-1 text-hpal-200">
+          <p
+            className={`text-sm mb-1 text-hpal-200 ${
+              event.coursesOfAction.length == 1 && "invisible"
+            }`}
+          >
             Ideal Course: {event.idealCourse && event.idealCourse.description}
           </p>
           <p className="text-sm mb-2 text-hpal-200">
