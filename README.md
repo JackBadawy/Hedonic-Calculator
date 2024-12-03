@@ -121,10 +121,8 @@ The system automatically updates hedonic values and ideal courses:
 - `PUT /api/events/{id}`: Update an existing event
 - `DELETE /api/events/{id}`: Delete an event
 
-## Live Link
+## Links
 
-[Click Here](https://gentle-wave-01f645f1e.4.azurestaticapps.net/login)
+[Live Deploymen](https://gentle-wave-01f645f1e.4.azurestaticapps.net/login)
 
-## Backend
-
-https://github.com/JackBadawy/hcalc_backend
+[Backend Repo](https://github.com/JackBadawy/hcalc_backend)
