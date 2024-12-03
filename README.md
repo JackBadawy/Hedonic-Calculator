@@ -123,7 +123,7 @@ The system automatically updates hedonic values and ideal courses:
 
 ## Live Link
 
-https://gentle-wave-01f645f1e.4.azurestaticapps.net/login
+[Click Here](https://gentle-wave-01f645f1e.4.azurestaticapps.net/login)
 
 ## Backend
 
