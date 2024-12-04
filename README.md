@@ -123,6 +123,6 @@ The system automatically updates hedonic values and ideal courses:
 
 ## Links
 
-[Live Deploymen](https://gentle-wave-01f645f1e.4.azurestaticapps.net/login)
+[Live Deployment](https://gentle-wave-01f645f1e.4.azurestaticapps.net/login)
 
 [Backend Repo](https://github.com/JackBadawy/hcalc_backend)
