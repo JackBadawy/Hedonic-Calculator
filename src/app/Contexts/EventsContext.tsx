@@ -27,8 +27,13 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
 
   const fetchEventsHandler = useCallback(async () => {
     if (sessionToken) {
-      const fetchedEvents = await fetchEvents(sessionToken);
-      console.log(fetchedEvents);
+      const fetchedEvents: HEvent[] = await fetchEvents(sessionToken);
+      fetchedEvents.forEach((HEvent) => {
+        HEvent.coursesOfAction.sort((a, b) => {
+          if (!a.hedonicValue || !b.hedonicValue) return 0;
+          return b.hedonicValue - a.hedonicValue;
+        });
+      });
       setEvents(fetchedEvents);
     }
   }, [sessionToken]);
@@ -44,7 +49,7 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
       }
       return false;
     },
-    [sessionToken, events]
+    [sessionToken, events],
   );
 
   const addEventHandler = useCallback(
@@ -58,7 +63,7 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
       }
       return null;
     },
-    [sessionToken, events]
+    [sessionToken, events],
   );
 
   return (
