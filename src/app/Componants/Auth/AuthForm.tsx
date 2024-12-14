@@ -13,6 +13,7 @@ interface AuthFormProps {
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({ mode }) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -28,14 +29,16 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
+    setLoading(true);
     const result = await handleAuthSubmit(mode, username, password);
     if (result.success) {
       if (result.token) {
         await login(username, password);
+        setLoading(false);
         router.push("/main");
       }
     } else {
+      setLoading(false);
       setError(result.message);
     }
   };
@@ -60,8 +63,9 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode }) => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+
         <AuthErrorMessage message={error} />
-        <AuthButton text={title} />
+        <AuthButton text={loading ? "Loading" : title} />
       </form>
       <AuthLink href={linkHref} text={linkText} />
     </>
