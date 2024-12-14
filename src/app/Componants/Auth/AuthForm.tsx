@@ -65,9 +65,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode }) => {
         />
 
         <AuthErrorMessage message={error} />
-        <AuthButton text={title} />
+        <AuthButton text={loading ? "Loading" : title} />
       </form>
-      {loading ? <p>Loading</p> : null}
       <AuthLink href={linkHref} text={linkText} />
     </>
   );
