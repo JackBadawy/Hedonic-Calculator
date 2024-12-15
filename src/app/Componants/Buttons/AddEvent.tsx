@@ -19,8 +19,8 @@ const AddEvent: React.FC = () => {
   };
 
   return (
-    <div className="flex mb-3">
-      <span className="flex border-[4px] border-hpal-500 rounded-full p-[2px]">
+    <div className="justify-self-center flex mb-3">
+      <span className="flex border-[4px] border-hpal-500 rounded-full p-[2px] bg-hpal-200 z-10">
         <span className="flex border-[4px] border-hpal-500 rounded-full p-[2px]">
           <span className="flex border-[4px] border-hpal-500 rounded-full p-[2px]">
             <button

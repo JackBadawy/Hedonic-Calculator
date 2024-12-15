@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { HEvent } from "@/app/Types/hedon";
 import SubHeading from "./SubHeading";
+import AddEvent from "../../Buttons/AddEvent";
 
 interface EventListContainerProps {
   events: HEvent[];
@@ -12,8 +13,7 @@ const EventListContainer: React.FC<EventListContainerProps> = ({
   children,
 }) => {
   return (
-    <div className="mt-4">
-      <SubHeading txt="Events" />
+    <div className="">
       {events.length === 0 ? (
         <p className="text-hpal-500">No events added yet.</p>
       ) : (
