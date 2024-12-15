@@ -6,6 +6,7 @@ const monoton = Monoton({ subsets: ["latin"], weight: ["400"] });
 
 const HNav = () => {
   const { username } = useAuth();
+
   return (
     <div className="w-full py-1 mb-5">
       <div className="flex flex-col gap-0.5 mb-0.5 justify-center">
@@ -17,15 +18,15 @@ const HNav = () => {
         <hr className="border-0 bg-hpal-200 h-1 text-hpal-200" />
         <div className="my-1 text-hpal-200 flex items-center justify-between p-2 px-4">
           <h1 className={monoton.className + " text-5xl"}>
-            Hedonic Calculator
+            Hedonic Calculator {username}
           </h1>
           <div className="  font-bold flex items-center gap-2">
-            {username && (
+            {username ? (
               <>
                 <p className="text-lg">{username}</p>
                 <LogoutBtn />
               </>
-            )}
+            ) : null}
           </div>
         </div>
         <hr className="border-0 bg-hpal-200 h-1 text-hpal-200" />
