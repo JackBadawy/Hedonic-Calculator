@@ -58,8 +58,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   const logout = () => {
     localStorage.removeItem("sessionToken");
+    localStorage.removeItem("userName");
     setSessionToken(null);
-    setUsername("");
     setIsAuthenticated(false);
   };
 
