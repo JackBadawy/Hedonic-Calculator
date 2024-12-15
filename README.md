@@ -1,5 +1,11 @@
 # Hedonic Calculator
 
+## Links
+
+[Click here for Live Deployment](https://gentle-wave-01f645f1e.4.azurestaticapps.net/login)
+
+[Click here to see the Backend Repository](https://github.com/JackBadawy/hcalc_backend)
+
 ## Overview
 
 This is a calculator based on Jeremy Bentham's felicific calculus. The purpose of this project is to calculate the amount of joy a given course of action will bring you.
@@ -120,9 +126,3 @@ The system automatically updates hedonic values and ideal courses:
 - `POST /api/events`: Create a new event
 - `PUT /api/events/{id}`: Update an existing event
 - `DELETE /api/events/{id}`: Delete an event
-
-## Links
-
-[Live Deployment](https://gentle-wave-01f645f1e.4.azurestaticapps.net/login)
-
-[Backend Repo](https://github.com/JackBadawy/hcalc_backend)
