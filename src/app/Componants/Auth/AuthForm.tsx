@@ -34,7 +34,6 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode }) => {
     if (result.success) {
       if (result.token) {
         await login(username, password);
-        setLoading(false);
         router.push("/main");
       }
     } else {
