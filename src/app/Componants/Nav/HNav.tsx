@@ -18,7 +18,7 @@ const HNav = () => {
         <hr className="border-0 bg-hpal-200 h-1 text-hpal-200" />
         <div className="my-1 text-hpal-200 flex items-center justify-between p-2 px-4">
           <h1 className={monoton.className + " text-5xl"}>
-            Hedonic Calculator {username}
+            Hedonic Calculator
           </h1>
           <div className="  font-bold flex items-center gap-2">
             {username ? (
