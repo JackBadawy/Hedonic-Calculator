@@ -5,6 +5,8 @@ import {
   useState,
   ReactNode,
   useEffect,
+  SetStateAction,
+  Dispatch,
 } from "react";
 import { loginUser } from "../Utilities/AuthUtils";
 
@@ -15,7 +17,7 @@ interface AuthContextType {
   username: string;
   login: (
     username: string,
-    password: string
+    password: string,
   ) => Promise<{ success: boolean; message: string }>;
   logout: () => void;
 }

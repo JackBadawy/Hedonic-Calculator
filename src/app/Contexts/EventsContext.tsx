@@ -12,6 +12,7 @@ import { fetchEvents, removeEvent, addEvent } from "../Utilities/EventUtils";
 
 interface EventsContextType {
   events: HEvent[];
+  eventsLoading: boolean;
   fetchEvents: () => Promise<void>;
   removeEvent: (id: number) => Promise<boolean>;
   addEvent: (event: HEvent) => Promise<HEvent | null>;
@@ -23,9 +24,11 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [events, setEvents] = useState<HEvent[]>([]);
-  const { sessionToken } = useAuth();
+  const [eventsLoading, setEventsLoading] = useState<boolean>(false);
+  const { sessionToken, loading } = useAuth();
 
   const fetchEventsHandler = useCallback(async () => {
+    setEventsLoading(true);
     if (sessionToken) {
       const fetchedEvents: HEvent[] = await fetchEvents(sessionToken);
       fetchedEvents.forEach((HEvent) => {
@@ -35,6 +38,7 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
         });
       });
       setEvents(fetchedEvents);
+      setEventsLoading(false);
     }
   }, [sessionToken]);
 
@@ -70,6 +74,7 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
     <EventsContext.Provider
       value={{
         events,
+        eventsLoading,
         fetchEvents: fetchEventsHandler,
         removeEvent: removeEventHandler,
         addEvent: addEventHandler,

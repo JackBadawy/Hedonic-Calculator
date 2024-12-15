@@ -8,9 +8,10 @@ import { useEffect } from "react";
 import IdleTimer from "../Componants/Auth/IdleTimer";
 import AboutBtn from "../Componants/Buttons/AboutBtn";
 import HNav from "../Componants/Nav/HNav";
+import EventListFallback from "../Componants/Containers/EventList/EventListFallback";
 
 export default function Main() {
-  const { events, removeEvent, fetchEvents } = useEvents();
+  const { events, removeEvent, fetchEvents, eventsLoading } = useEvents();
   const { sessionToken, loading } = useAuth();
   const router = useRouter();
 
@@ -26,10 +27,6 @@ export default function Main() {
     await removeEvent(id);
   };
 
-  if (!sessionToken) {
-    return null;
-  }
-
   return (
     <div className="bg-hpal-200 min-h-screen">
       <HNav />
@@ -37,10 +34,14 @@ export default function Main() {
       <IdleTimer />
       <div className="p-4">
         <AddEvent />
-        <EventListContainerClient
-          events={events}
-          onRemoveEvent={handleRemoveEvent}
-        />
+        {eventsLoading ? (
+          <EventListFallback />
+        ) : (
+          <EventListContainerClient
+            events={events}
+            onRemoveEvent={handleRemoveEvent}
+          />
+        )}
       </div>
     </div>
   );
