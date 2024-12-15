@@ -58,17 +58,11 @@ const CourseCarousel: React.FC<CourseCaroselProps> = ({ event }) => {
         }`}
       >
         <div className="flex justify-end gap-2 items-center">
-          <CourseNavBtn
-            content="&#11164;"
-            onClick={() => onClick("&#11164;")}
-          />
+          <CourseNavBtn content="left" onClick={() => onClick("&#11164;")} />
           <div className="">
             {navData.curCourse}/{navData.courseCount}
           </div>
-          <CourseNavBtn
-            content="&#11166;"
-            onClick={() => onClick("&#11166;")}
-          />
+          <CourseNavBtn content="right" onClick={() => onClick("&#11166;")} />
         </div>
         {isIdealCourse && (
           <p className="pl-1 animate-pulse text-yellow-500 visible text-2xl">
