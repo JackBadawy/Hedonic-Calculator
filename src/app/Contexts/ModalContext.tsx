@@ -140,7 +140,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
     isOpen && mounted
       ? createPortal(
           <div
-            className={`z-0 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ${
+            className={`z-20 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ${
               isClosing ? "fade-out" : "fade-in"
             }`}
             onClick={closeModal}
@@ -149,7 +149,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
               className={`bg-hpal-500 text-hpal-100 rounded-lg mx-8
                 ${isClosing ? "slide-up" : "slide-down"}
                 ${modalOptions.className || ""}
-                grid transition-[grid-template-rows] duration-1000 ease-in-out 
+                grid transition-[grid-template-rows] duration-1000 ease-in-out
               `}
               style={{
                 width: modalOptions.width || "auto",
@@ -190,7 +190,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
               </div>
             </div>
           </div>,
-          document.body
+          document.body,
         )
       : null;
 
