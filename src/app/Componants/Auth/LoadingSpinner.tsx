@@ -1,9 +1,26 @@
-const LoadingSpinner = () => {
+import { Key } from "readline";
+
+type LoadingSpinnerProps = {
+  fillClass?: string;
+  sizeClass?: string;
+};
+const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
+  fillClass = "fill-hpal-100",
+  sizeClass,
+}) => {
+  /*used entire fill class atribute as prop to get around tailwind dynamic
+  render restrictions as fill hasn't been used before in project */
+
+  const txtClass: string = `font-bold text-${fillClass.slice(5)}${sizeClass ? ` text-${sizeClass}` : null}`;
+  const wheelSizeDict: Record<string, string> = {
+    "2xl": "w-6 h-6",
+  };
+
   return (
     <div role="status" className="flex items-center gap-2">
       <svg
         aria-hidden="true"
-        className="w-5 h-5 text-transparent animate-spin fill-hpal-100"
+        className={`${sizeClass ? wheelSizeDict[sizeClass] : "w-5 h-5"} text-transparent animate-spin ${fillClass}`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +34,7 @@ const LoadingSpinner = () => {
           fill="currentFill"
         />
       </svg>
-      <span className="text-hpal-100">Loading...</span>
+      <span className={txtClass}>Loading...</span>
     </div>
   );
 };
