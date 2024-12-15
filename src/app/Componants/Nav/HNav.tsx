@@ -1,11 +1,14 @@
 import { useAuth } from "@/app/Contexts/AuthContext";
 import LogoutBtn from "../Buttons/LogoutBtn";
 import { Monoton } from "next/font/google";
+import { usePathname } from "next/navigation";
 
 const monoton = Monoton({ subsets: ["latin"], weight: ["400"] });
 
 const HNav = () => {
   const { username } = useAuth();
+
+  const pathName = usePathname();
 
   return (
     <div className="w-full py-1 mb-5">
@@ -21,7 +24,7 @@ const HNav = () => {
             Hedonic Calculator
           </h1>
           <div className="  font-bold flex items-center gap-2">
-            {username ? (
+            {(pathName !== "/login" || "/register") && username ? (
               <>
                 <p className="text-lg">{username}</p>
                 <LogoutBtn />
