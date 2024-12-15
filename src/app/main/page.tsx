@@ -12,7 +12,7 @@ import EventListFallback from "../Componants/Containers/EventList/EventListFallb
 
 export default function Main() {
   const { events, removeEvent, fetchEvents, eventsLoading } = useEvents();
-  const { sessionToken, loading } = useAuth();
+  const { sessionToken, loading, username } = useAuth();
   const router = useRouter();
 
   useEffect(() => {

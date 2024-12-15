@@ -33,9 +33,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [username, setUsername] = useState("");
   useEffect(() => {
     const storedToken = localStorage.getItem("sessionToken");
+    const storedName = localStorage.getItem("userName");
     if (storedToken) {
       setSessionToken(storedToken);
       setIsAuthenticated(true);
+    }
+    if (storedName) {
+      setUsername(storedName);
     }
     setLoading(false);
   }, []);
@@ -44,6 +48,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     const result = await loginUser(username, password);
     if (result.success && result.token) {
       localStorage.setItem("sessionToken", result.token);
+      localStorage.setItem("userName", username);
       setSessionToken(result.token);
       setUsername(username);
       setIsAuthenticated(true);
