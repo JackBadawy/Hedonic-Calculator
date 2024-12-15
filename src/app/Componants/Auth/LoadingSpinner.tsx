@@ -3,10 +3,12 @@ import { Key } from "readline";
 type LoadingSpinnerProps = {
   fillClass?: string;
   sizeClass?: string;
+  noText?: boolean;
 };
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   fillClass = "fill-hpal-100",
   sizeClass,
+  noText = false,
 }) => {
   /*used entire fill class atribute as prop to get around tailwind dynamic
   render restrictions as fill hasn't been used before in project */
@@ -34,7 +36,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
           fill="currentFill"
         />
       </svg>
-      <span className={txtClass}>Loading...</span>
+      {!noText && <span className={txtClass}>Loading...</span>}
     </div>
   );
 };
