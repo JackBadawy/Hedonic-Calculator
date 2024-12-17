@@ -12,7 +12,7 @@ const AboutBtn = () => {
       .open();
   };
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center self-center justify-self-center">
       <div className="bg-hpal-500 p-1 rounded-lg ">
         <button
           className="rounded-md px-3 transition-colors bg-hpal-400 hover:bg-hpal-300 p-2 text-hpal-200 hover:text-hpal-100 font-bold"
