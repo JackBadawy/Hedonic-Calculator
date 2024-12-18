@@ -35,19 +35,19 @@ export default function Main() {
       <IdleTimer />
       <div className="p-4 overflow-hidden">
         <div></div>
-        <div className="relative">
-          <div className="grid grid-cols-3">
+        <div className="relative mb-5">
+          <div className="grid grid-cols-3 auto-rows-fr justify-center items-center">
             <div className="relative bg-hpal-200">
               <SubHeading txt="Events" />
             </div>
-            <div className="relative z-10 justify-self-center">
+            <div className="flex z-10 place-items-center">
               <AddEvent />
             </div>
-            <div className="relative z-10 justify-self-end">
+            <div className="z-10 justify-self-end">
               <AboutBtn />
             </div>
           </div>
-          <hr className="overflow-hidden absolute -ml-8 top-[47%] w-[200%] h-[6px] -translate-y-1/2 bg-hpal-500 border-none z-0" />
+          <hr className="overflow-hidden absolute -ml-8 top-[50%] w-[200%] h-[6px] -translate-y-1/2 bg-hpal-500 border-none z-0" />
         </div>
         {eventsLoading ? (
           <EventListFallback />

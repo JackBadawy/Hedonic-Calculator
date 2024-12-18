@@ -12,10 +12,10 @@ const AboutBtn = () => {
       .open();
   };
   return (
-    <div className="flex justify-center self-center justify-self-center">
-      <div className="bg-hpal-500 p-1 rounded-lg ">
+    <div className="z-10 border-4 rounded-2xl bg-hpal-200 border-hpal-500 p-px mr-1">
+      <div className="border-4 border-hpal-500 p-px rounded-xl">
         <button
-          className="rounded-md px-3 transition-colors bg-hpal-400 hover:bg-hpal-300 p-2 text-hpal-200 hover:text-hpal-100 font-bold"
+          className="rounded-lg px-3 py-1 transition-colors bg-hpal-500 hover:bg-hpal-200 text-xl text-hpal-200 hover:text-hpal-500 font-extrabold"
           onClick={openAboutModal}
         >
           ?
