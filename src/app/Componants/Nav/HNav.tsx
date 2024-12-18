@@ -26,7 +26,7 @@ const HNav = () => {
           <div className="transition-all font-bold flex items-center gap-2">
             {pathName === "/main" && username !== "" ? (
               <>
-                <p className="text-lg">{username}</p>
+                <p className="text-lg select-none">{username}</p>
                 <LogoutBtn />
               </>
             ) : null}
