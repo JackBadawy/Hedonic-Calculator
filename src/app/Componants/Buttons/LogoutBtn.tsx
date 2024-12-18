@@ -23,13 +23,27 @@ const LogoutBtn = () => {
     }
   };
 
+  const [logoutHoverState, setLogoutHS] = useState<boolean>(false);
+
   return (
     <button
-      className={`${logoutLoading && "pointer-events-none"} w-24 text-center flex justify-center gap-2 bg-hpal-400 text-hpal-200 hover:text-hpal-100 font-bold px-4 py-2 rounded hover:bg-hpal-300 transition-colors"`}
+      className={`${logoutLoading && "pointer-events-none"} transition-all border-none p-px text-nowrap w-24 text-center ${!logoutHoverState ? "bg-hpal-200 text-hpal-500 border-hpal-500" : "bg-hpal-500 text-hpal-200 border-hpal-200"} font-bold`}
       onClick={handleLogout}
+      onMouseEnter={() => setLogoutHS(true)}
+      onMouseLeave={() => setLogoutHS(false)}
     >
-      {!logoutLoading ? "Logout" : "wait"}
-      {logoutLoading && <LoadingSpinner noText fillClass="fill-hpal-200" />}
+      <div
+        className={`border-4 p-px ${!logoutHoverState ? "border-hpal-500" : "border-hpal-200"}`}
+      >
+        <div className="border-4 border-inherit p-px bg-transparent">
+          <div className="flex justify-center gap-2 text-inherit">
+            {!logoutLoading ? "Logout" : "wait"}
+            {logoutLoading && (
+              <LoadingSpinner noText fillClass="fill-hpal-200" />
+            )}
+          </div>
+        </div>
+      </div>
     </button>
   );
 };
