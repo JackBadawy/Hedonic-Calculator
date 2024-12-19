@@ -10,6 +10,7 @@ const LogoutBtn = () => {
   const [logoutLoading, setLogoutLoading] = useState<Boolean>(false);
 
   const handleLogout = async () => {
+    setLogoutHS(false);
     if (sessionToken) {
       setLogoutLoading(true);
       const success = await logoutUser(sessionToken);
@@ -39,7 +40,7 @@ const LogoutBtn = () => {
           <div className="flex justify-center gap-2 text-inherit">
             {!logoutLoading ? "Logout" : "wait"}
             {logoutLoading && (
-              <LoadingSpinner noText fillClass="fill-hpal-200" />
+              <LoadingSpinner noText fillClass="fill-hpal-500" />
             )}
           </div>
         </div>
