@@ -9,7 +9,7 @@ const NoEvents = () => {
         height={"250"}
         alt=""
         style={{ fill: "#011638" }}
-        unoptimized
+        priority
       />
       <div className="text-center text-hpal-500">
         <p className="select-none text-2xl font-bold">No events added yet.</p>
