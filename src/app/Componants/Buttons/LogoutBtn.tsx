@@ -27,25 +27,29 @@ const LogoutBtn = () => {
   const [logoutHoverState, setLogoutHS] = useState<boolean>(false);
 
   return (
-    <button
-      className={`${logoutLoading && "pointer-events-none"} transition-all border-none p-px text-nowrap w-24 text-center ${!logoutHoverState ? "bg-hpal-200 text-hpal-500 border-hpal-500" : "bg-hpal-500 text-hpal-200 border-hpal-200"} font-bold`}
-      onClick={handleLogout}
-      onMouseEnter={() => setLogoutHS(true)}
-      onMouseLeave={() => setLogoutHS(false)}
-    >
-      <div
-        className={`border-4 p-px ${!logoutHoverState ? "border-hpal-500" : "border-hpal-200"}`}
+    <div className="w-24 h-16 flex justify-center items-center">
+      <button
+        className={`${logoutLoading && "pointer-events-none"} transition-all border-none p-0.5 text-nowrap w-24 text-center bg-hpal-200 ${!logoutHoverState ? "text-hpal-500 border-hpal-500" : "w-[90px] text-hpal-200 border-hpal-200"} font-bold`}
+        onClick={handleLogout}
+        onMouseEnter={() => setLogoutHS(true)}
+        onMouseLeave={() => setLogoutHS(false)}
       >
-        <div className="border-4 border-inherit p-px bg-transparent">
-          <div className="flex justify-center gap-2 text-inherit">
-            {!logoutLoading ? "Logout" : "wait"}
-            {logoutLoading && (
-              <LoadingSpinner noText fillClass="fill-hpal-500" />
-            )}
+        <div
+          className={`p-1 ${!logoutHoverState ? "border-4 border-hpal-500 bg-hpal-200" : "bg-hpal-500"}`}
+        >
+          <div
+            className={`border-4  ${!logoutHoverState ? "border-hpal-500 bg-hpal-200" : "border-hpal-200 bg-hpal-500"} p-1`}
+          >
+            <div className="flex justify-center gap-2 text-inherit">
+              {!logoutLoading ? "Logout" : "wait"}
+              {logoutLoading && (
+                <LoadingSpinner noText fillClass="fill-hpal-500" />
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </button>
+      </button>
+    </div>
   );
 };
 
