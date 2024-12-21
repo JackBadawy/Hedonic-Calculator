@@ -12,7 +12,7 @@ const HNav = () => {
 
   return (
     <div className="w-full py-1 mb-5">
-      <div className="flex flex-col gap-0.5 mb-0.5 justify-center">
+      <div className="mt-1 flex flex-col gap-0.5 mb-0.5 justify-center">
         <hr className="border-0 bg-hpal-500 h-1 text-hpal-500 " />
         <hr className="border-0 bg-hpal-500 h-1 text-hpal-500 " />
         <hr className="border-0 bg-hpal-500 h-1 text-hpal-500 " />

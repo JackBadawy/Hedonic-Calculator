@@ -2,15 +2,19 @@ import Image from "next/image";
 
 const NoEvents = () => {
   return (
-    <div className="flex items-center justify-center min-h-80 w-full">
+    <div className="select-none flex flex-col gap-5 items-center justify-center min-h-80 w-full opacity-50">
       <Image
-        src={"../../img/noItems.svg"}
-        width={"100"}
-        height={"100"}
+        src={"/noItems.svg"}
+        width={"200"}
+        height={"200"}
         alt=""
+        style={{ fill: "#011638" }}
         unoptimized
       />
-      <p className="text-hpal-500 text-2xl font-bold">No events added yet.</p>
+      <div className="text-center text-hpal-500">
+        <p className="select-none text-2xl font-bold">No events added yet.</p>
+        <p>start creating events by clicking on &apos;Add Event&apos;</p>
+      </div>
     </div>
   );
 };
