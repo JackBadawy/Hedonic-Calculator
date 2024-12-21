@@ -5,8 +5,8 @@ const NoEvents = () => {
     <div className="select-none flex flex-col gap-5 items-center justify-center min-h-80 w-full opacity-50">
       <Image
         src={"/noItems.svg"}
-        width={"200"}
-        height={"200"}
+        width={"250"}
+        height={"250"}
         alt=""
         style={{ fill: "#011638" }}
         unoptimized
