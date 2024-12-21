@@ -3,6 +3,7 @@ import EventListContainer from "./EventListContainer";
 import EventListFallback from "./EventListFallback";
 import EventCard from "../../Cards/EventCard";
 import { useAuth } from "@/app/Contexts/AuthContext";
+import NoEvents from "../../EventComps/NoEvents";
 
 interface EventListContainerClientProps {
   events: HEvent[];
@@ -22,7 +23,7 @@ const EventListContainerClient: React.FC<EventListContainerClientProps> = ({
       ) : (
         <EventListContainer events={events}>
           {events.length === 0 ? (
-            <p className="text-hpal-500">No events added yet.</p>
+            <NoEvents />
           ) : (
             events.map((event) => (
               <EventCard
