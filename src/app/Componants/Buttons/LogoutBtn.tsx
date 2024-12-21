@@ -27,12 +27,14 @@ const LogoutBtn = () => {
   const [logoutHoverState, setLogoutHS] = useState<boolean>(false);
 
   return (
-    <div className="w-24 h-16 flex justify-center items-center">
+    <div
+      className="w-24 h-16 flex justify-center items-center"
+      onMouseEnter={() => setLogoutHS(true)}
+      onMouseLeave={() => setLogoutHS(false)}
+    >
       <button
         className={`${logoutLoading && "pointer-events-none"} transition-all border-none p-0.5 text-nowrap w-24 text-center bg-hpal-200 ${!logoutHoverState ? "text-hpal-500 border-hpal-500" : "w-[90px] text-hpal-200 border-hpal-200"} font-bold`}
         onClick={handleLogout}
-        onMouseEnter={() => setLogoutHS(true)}
-        onMouseLeave={() => setLogoutHS(false)}
       >
         <div
           className={`p-1 ${!logoutHoverState ? "border-4 border-hpal-500 bg-hpal-200" : "bg-hpal-500"}`}
