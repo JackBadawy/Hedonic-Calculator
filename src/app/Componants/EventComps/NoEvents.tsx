@@ -8,7 +8,6 @@ const NoEvents = () => {
         width={"250"}
         height={"250"}
         alt=""
-        style={{ fill: "#011638" }}
         priority
       />
       <div className="text-center text-hpal-500">

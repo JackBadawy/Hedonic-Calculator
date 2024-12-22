@@ -13,7 +13,7 @@ import SubHeading from "../Componants/Containers/EventList/SubHeading";
 
 export default function Main() {
   const { events, removeEvent, fetchEvents, eventsLoading } = useEvents();
-  const { sessionToken, loading, username } = useAuth();
+  const { sessionToken, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {

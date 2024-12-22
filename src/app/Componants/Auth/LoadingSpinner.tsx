@@ -1,4 +1,5 @@
 import { Key } from "readline";
+import { monoton } from "../Nav/HNav";
 
 type LoadingSpinnerProps = {
   fillClass?: string;
@@ -13,13 +14,20 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   /*used entire fill class atribute as prop to get around tailwind dynamic
   render restrictions as fill hasn't been used before in project */
 
-  const txtClass: string = `font-bold text-${fillClass.slice(5)}${sizeClass ? ` text-${sizeClass}` : null}`;
+  const txtClass: string = `font-bold text-${fillClass.slice(5)}${sizeClass ? ` text-${sizeClass} ${monoton.className}` : null}`;
   const wheelSizeDict: Record<string, string> = {
     "2xl": "w-6 h-6",
+    "3xl": "w-7 h-7",
+    "4xl": "w-8 h-8",
+    "5xl": "w-9 h-9",
+    "6xl": "w-10 h-10",
+    "7xl": "w-11 h-11",
+    "[36px]": "w-10 h-10",
   };
 
   return (
     <div role="status" className="flex items-center gap-2">
+      {!noText && <span className={txtClass}>Loading</span>}{" "}
       <svg
         aria-hidden="true"
         className={`${sizeClass ? wheelSizeDict[sizeClass] : "w-5 h-5"} text-transparent animate-spin ${fillClass}`}
@@ -36,7 +44,6 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
           fill="currentFill"
         />
       </svg>
-      {!noText && <span className={txtClass}>Loading...</span>}
     </div>
   );
 };
