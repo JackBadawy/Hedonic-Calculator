@@ -4,7 +4,7 @@ import { Monoton } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-const monoton = Monoton({ subsets: ["latin"], weight: ["400"] });
+export const monoton = Monoton({ subsets: ["latin"], weight: ["400"] });
 
 const HNav = () => {
   const { username } = useAuth();
