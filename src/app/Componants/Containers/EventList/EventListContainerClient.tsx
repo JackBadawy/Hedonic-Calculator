@@ -18,7 +18,7 @@ const EventListContainerClient: React.FC<EventListContainerClientProps> = ({
 
   return (
     <>
-      {loading ? (
+      {loading && events.length === 0 ? (
         <EventListFallback />
       ) : (
         <EventListContainer events={events}>
