@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { HEvent } from "@/app/Types/hedon";
 import SubHeading from "./SubHeading";
 import AddEvent from "../../Buttons/AddEvent";
+import AddEventLoadEffect from "../../Loading/AddEventLoadEffect";
 
 interface EventListContainerProps {
   events: HEvent[];
@@ -14,7 +15,8 @@ const EventListContainer: React.FC<EventListContainerProps> = ({
 }) => {
   return (
     <div>
-      <div className="flex flex-wrap gap-3">
+      <div className="relative flex flex-wrap gap-3">
+        <AddEventLoadEffect />
         {children ||
           events.map((event, index) => (
             <div key={index} className="bg-violet-100 p-4 rounded-lg shadow">

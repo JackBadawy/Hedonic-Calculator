@@ -129,7 +129,7 @@ body {
             right/300% 100%;
         animation: l22 2s infinite;
     }
-    .loader::before {
+    .skewLoad::before {
         color: #0000;
         background: inherit;
         background-image: linear-gradient(
