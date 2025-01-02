@@ -14,6 +14,7 @@ interface EventsContextType {
   events: HEvent[];
   eventsLoading: boolean;
   fetchEvents: () => Promise<void>;
+  isUpdating: boolean;
   removeEvent: (id: number) => Promise<boolean>;
   addEvent: (event: HEvent) => Promise<HEvent | null>;
 }
@@ -25,6 +26,7 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [events, setEvents] = useState<HEvent[]>([]);
   const [eventsLoading, setEventsLoading] = useState<boolean>(false);
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const { sessionToken, loading } = useAuth();
 
   const fetchEventsHandler = useCallback(async () => {
@@ -59,12 +61,15 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
   const addEventHandler = useCallback(
     async (event: HEvent): Promise<HEvent | null> => {
       if (sessionToken) {
+        setIsUpdating(true);
         const newEvent = await addEvent(event, sessionToken);
         if (newEvent) {
           setEvents([...events, newEvent]);
         }
+        setIsUpdating(false);
         return newEvent;
       }
+
       return null;
     },
     [sessionToken, events],
@@ -75,6 +80,7 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
       value={{
         events,
         eventsLoading,
+        isUpdating,
         fetchEvents: fetchEventsHandler,
         removeEvent: removeEventHandler,
         addEvent: addEventHandler,
