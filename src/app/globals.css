@@ -95,6 +95,40 @@ body {
         animation: fadeOut 0.3s ease-out forwards;
     }
 
+    .updEffect {
+        width: fit-content;
+
+        background: repeating-linear-gradient(
+                90deg,
+                currentColor 0 8%,
+                #0000 0 10%
+            )
+            200% 100%/200% 3px no-repeat;
+        animation: updAni 2s steps(6) infinite;
+    }
+
+    .updPulse {
+        animation: updPulseAni 3s infinite ease-in-out;
+    }
+
+    @keyframes updPulseAni {
+        0% {
+            opacity: 100%;
+        }
+        50% {
+            opacity: 50%;
+        }
+        100% {
+            opacity: 100%;
+        }
+    }
+
+    @keyframes updAni {
+        to {
+            background-position: 80% 100%;
+        }
+    }
+
     .loader {
         width: fit-content;
         font-weight: bold;
