@@ -18,23 +18,21 @@ const ProgressHeader = ({
   if (!isEventDescriptionComplete) return null;
 
   return (
-    <div className="space-y-2 mb-4">
+    <div className="mb-4">
       <div>
-        <h2 className="text-l font-semibold text-hpal-100 break-words">
+        <h2 className="text-lg font-semibold text-hpal-100 break-words">
           {eventDescription}
         </h2>
       </div>
 
       {currentCourse.description && step > 0 && (
-        <div className="flex items-center gap-2">
-          <p className="text-md text-hpal-100 ml-2">
-            {currentCourse.description}
-          </p>
-        </div>
+        <p className="text-md text-hpal-100 ml-2 mb-1">
+          {currentCourse.description}
+        </p>
       )}
 
       {coursesOfAction.length > 0 && (
-        <div className="text-sm text-hpal-100">
+        <div className="mt-2 text-xs text-hpal-100">
           {coursesOfAction.length} course
           {coursesOfAction.length !== 1 ? "s" : ""} of action added
         </div>
