@@ -1,48 +1,49 @@
 # Hedonic Calculator
 
+A calculator based on Jeremy Bentham's felicific calculus (hedonic calculus) designed to help evaluate and calculate the potential joy or utility of different courses of action.
+
 ## Links
 
-[Click here for Live Deployment](https://gentle-wave-01f645f1e.4.azurestaticapps.net/login)
+[Live Deployment](https://gentle-wave-01f645f1e.4.azurestaticapps.net/login)
 
-[Click here to see the Backend Repository](https://github.com/JackBadawy/hcalc_backend)
-
-## Overview
-
-This is a calculator based on Jeremy Bentham's felicific calculus. The purpose of this project is to calculate the amount of joy a given course of action will bring you.
+[Backend Repository](https://github.com/JackBadawy/hcalc_backend)
 
 ## Key Features
 
 - Authentication system with user registration, login, and session management
-- Calculation of joy based on various factors
-- Modal system using the Builder pattern for flexible and intuitive modal creation
+- Interactive calculator for evaluating actions based on Bentham's criteria
+- PDF generation of Bentham's original essay "An Introduction to the Principles of Morals and Legislation"
 - Event management system with add and remove functionality
+- Modal system using the Builder pattern
 - Server-Side Rendering (SSR) optimized components
 - Comprehensive test suite for backend functionality
 
-## Variables
+## Felicific Calculus Variables
 
-The calculator considers the following variables in its calculations:
+The calculator evaluates actions based on seven key variables from Bentham's original framework:
 
 1. **Intensity**: How strong is the pleasure?
 2. **Duration**: How long will the pleasure last?
-3. **Certainty or uncertainty**: How likely or unlikely is it that the pleasure will occur?
-4. **Propinquity or remoteness**: How soon will the pleasure occur?
-5. **Fecundity**: The probability that the action will be followed by sensations of the same kind.
-6. **Purity**: The probability that it will not be followed by sensations of the opposite kind.
-7. **Extent**: How many people will be affected?
+3. **Certainty**: How likely is it that the pleasure will occur?
+4. **Propinquity**: How soon will the pleasure occur?
+5. **Fecundity**: The probability of similar sensations following
+6. **Purity**: The probability it won't be followed by opposite sensations
+7. **Extent**: Number of people affected
+
+## Frontend Features
+
+### PDF Generation
+
+The application includes functionality to generate and download a PDF version of Bentham's essay "An Introduction to the Principles of Morals and Legislation". Key features include:
+
+- Dynamic PDF generation with proper formatting
+- Chapter-based organization
+- Styled headings and text
+- Downloadable format for offline reading
 
 ### Modal System
 
-This project implements a flexible modal system using the Builder pattern. This approach allows for intuitive and customizable creation of modals throughout the application.
-
-#### Key Features of the Modal System:
-
-- Uses a `ModalBuilder` class for creating and configuring modals
-- Supports setting custom messages, content, confirmation actions, dimensions, and CSS classes
-- Automatically closes modals upon confirmation
-- Centralized modal management through a `ModalContext`
-
-### Example Usage:
+Implements a flexible modal system using the Builder pattern for intuitive modal creation:
 
 ```typescript
 const { ModalBuilder } = useModal();
@@ -59,70 +60,57 @@ new ModalBuilder()
   .open();
 ```
 
-This pattern allows for easy creation, customization, and immediate display of modals across the application.
-
 ### Event Management System
 
-The application includes an event management system that allows users to add and remove events. Key features include:
+Features a comprehensive event management system with:
 
-- `EventsContext` for centralized state management of events
-- `EventListContainer` for displaying the list of events
-- `EventCard` component for rendering individual event details
-- Add and remove functionality for events
+- `EventsContext` for centralized state management
+- `EventListContainer` for event display
+- `EventCard` component for individual events
+- Add/remove event functionality
 
 ### SSR Optimization
 
-The project is optimized for Server-Side Rendering:
+Optimized for Server-Side Rendering using:
 
-- Use of Next.js App Router for efficient routing and rendering
-- Separation of server and client components for optimal performance
-- Implementation of Suspense and fallback components for improved loading experience
+- Next.js App Router
+- Server/client component separation
+- Suspense and fallback components
 
-## Backend
+## Backend Architecture
 
-The backend is built using Spring Boot and provides a RESTful API for managing events and courses of action, and user authentication.
+The backend is built with Spring Boot and provides a RESTful API for:
 
-### Key Features:
-
-- User authentication and session management
-- CRUD operations for events and courses of action
-- Automatic calculation of hedonic values for courses of action
-- Determination of the ideal course of action for each event
-
-### Authentication System:
-
-The project includes a robust authentication system with the following features:
+### Authentication System
 
 - User registration with unique usernames
-- Secure password hashing using BCrypt
-- User login with session token generation
+- Secure password hashing (BCrypt)
+- Session token management
+- Login/logout functionality
+
+### Core Functionality
+
+- CRUD operations for events
+- Automatic calculation of hedonic values
+- Ideal course of action determination
 - Session validation
-- Logout functionality
-
-The authentication system is implemented in the `AuthService` class and utilizes Spring Security for password encoding.
-
-### Utility Functions
-
-The backend includes utility functions for calculating hedonic values and determining ideal courses of action:
-
-- `calculateHedonicValue(HCourseOfAction course)`: Calculates the hedonic value of a course of action based on its attributes.
-- `findIdealCourse(List<HCourseOfAction> courses)`: Determines the course of action with the highest hedonic value from a list of courses.
-
-### Automatic Updates
-
-The system automatically updates hedonic values and ideal courses:
-
-- When a course of action is created or updated, its hedonic value is automatically calculated.
-- When an event's courses of action are set or updated, the ideal course is automatically determined.
 
 ### API Endpoints
 
-- `POST /api/auth/register`: Register a new user
-- `POST /api/auth/login`: User login
-- `POST /api/auth/logout`: User logout
-- `GET /api/auth/validate`: Validate session token
-- `GET /api/events`: Retrieve all events
-- `GET /api/events/{id}`: Retrieve a specific event
-- `POST /api/events`: Create a new event
-- `PUT /api/events/{id}`: Update an existing event
-- `DELETE /api/events/{id}`: Delete an event
+#### Authentication
+- `POST /api/auth/register`: Register user
+- `POST /api/auth/login`: Login
+- `POST /api/auth/logout`: Logout
+- `GET /api/auth/validate`: Validate session
+
+#### Event Management
+- `GET /api/events`: List events
+- `GET /api/events/{id}`: Get event
+- `POST /api/events`: Create event
+- `PUT /api/events/{id}`: Update event
+- `DELETE /api/events/{id}`: Delete event
+
+### Utility Functions
+
+- `calculateHedonicValue(HCourseOfAction course)`: Calculate hedonic values
+- `findIdealCourse(List<HCourseOfAction> courses)`: Determine optimal actions
