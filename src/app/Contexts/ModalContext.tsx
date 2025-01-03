@@ -161,8 +161,8 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
               onClick={(e) => e.stopPropagation()}
             >
               {modalOptions.message && (
-                <div className="p-6 pb-0">
-                  <h2 className="text-xl font-bold">{modalOptions.message}</h2>
+                <div className="p-6 pb-4 border-b border-hpal-400">
+                  <h2 className="text-2xl font-bold">{modalOptions.message}</h2>
                 </div>
               )}
 

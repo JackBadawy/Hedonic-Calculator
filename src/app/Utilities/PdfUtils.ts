@@ -202,7 +202,8 @@ export function generatePDF() {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "bentham-essay.pdf";
+  link.download =
+    "An-Introduction-to-the-Principles-of-Morals-and-Legislation.pdf";
   link.click();
   URL.revokeObjectURL(url);
 }
