@@ -10,53 +10,132 @@ const PAGE_CONFIG = {
   },
   lineHeight: 14,
   fontSize: 12,
+  titleFontSize: 18,
+  chapterFontSize: 14,
   charsPerLine: 80,
 };
 
 function preparePdfContent() {
   const paragraphs = essayText.split(/\n\n+/);
-  const lines: string[] = [];
+  const pages: string[][] = [[]];
+  let currentPage = 0;
+  let yPosition = PAGE_CONFIG.height - PAGE_CONFIG.margin.top;
 
-  paragraphs.forEach((paragraph) => {
-    const words = paragraph.trim().split(/\s+/);
+  function startNewPage() {
+    currentPage++;
+    pages[currentPage] = [];
+    yPosition = PAGE_CONFIG.height - PAGE_CONFIG.margin.top;
+    return yPosition;
+  }
+
+  function addToCurrentPage(line: string) {
+    pages[currentPage].push(line);
+  }
+
+  function wrapText(text: string, maxChars: number) {
+    const words = text.trim().split(/\s+/);
+    const lines: string[] = [];
     let currentLine = "";
 
     words.forEach((word) => {
-      if ((currentLine + " " + word).length <= PAGE_CONFIG.charsPerLine) {
+      if ((currentLine + " " + word).length <= maxChars) {
         currentLine += (currentLine ? " " : "") + word;
       } else {
-        lines.push(currentLine);
+        if (currentLine) lines.push(currentLine);
         currentLine = word;
       }
     });
 
-    if (currentLine) {
-      lines.push(currentLine);
-    }
-    lines.push("");
-  });
-
-  const linesPerPage = Math.floor(
-    (PAGE_CONFIG.height - PAGE_CONFIG.margin.top - PAGE_CONFIG.margin.bottom) /
-      PAGE_CONFIG.lineHeight,
-  );
-
-  const pages = [];
-  let currentPage: Array<string> = [];
-
-  lines.forEach((line) => {
-    if (currentPage.length >= linesPerPage) {
-      pages.push(currentPage);
-      currentPage = [];
-    }
-    currentPage.push(line);
-  });
-
-  if (currentPage.length > 0) {
-    pages.push(currentPage);
+    if (currentLine) lines.push(currentLine);
+    return lines;
   }
 
-  return pages;
+  paragraphs.forEach((paragraph, index) => {
+    if (yPosition <= PAGE_CONFIG.margin.bottom + PAGE_CONFIG.lineHeight * 2) {
+      yPosition = startNewPage();
+    }
+
+    addToCurrentPage("BT");
+
+    if (index === 0) {
+      addToCurrentPage(`/F1 ${PAGE_CONFIG.titleFontSize} Tf`);
+      const titleLines = wrapText(paragraph, PAGE_CONFIG.charsPerLine);
+      titleLines.forEach((line, lineIndex) => {
+        addToCurrentPage(`${PAGE_CONFIG.margin.left} ${yPosition} Td`);
+        addToCurrentPage(
+          `(${line.replace(/\(/g, "\\(").replace(/\)/g, "\\)")}) Tj`,
+        );
+        yPosition -= PAGE_CONFIG.lineHeight * 1.5;
+        if (lineIndex < titleLines.length - 1) {
+          addToCurrentPage(`0 -${PAGE_CONFIG.lineHeight * 1.5} Td`);
+        }
+      });
+      addToCurrentPage("ET");
+      yPosition -= PAGE_CONFIG.lineHeight;
+    } else if (index === 1) {
+      addToCurrentPage(`/F1 ${PAGE_CONFIG.fontSize} Tf`);
+      addToCurrentPage(`${PAGE_CONFIG.margin.left} ${yPosition} Td`);
+      addToCurrentPage(
+        `(${paragraph.replace(/\(/g, "\\(").replace(/\)/g, "\\)")}) Tj`,
+      );
+      yPosition -= PAGE_CONFIG.lineHeight * 2;
+      addToCurrentPage("ET");
+    } else if (paragraph.trim().startsWith("Chapter")) {
+      yPosition -= PAGE_CONFIG.lineHeight * 2;
+
+      if (yPosition <= PAGE_CONFIG.margin.bottom + PAGE_CONFIG.lineHeight * 2) {
+        yPosition = startNewPage();
+      }
+
+      addToCurrentPage(`/F1 ${PAGE_CONFIG.chapterFontSize} Tf`);
+      addToCurrentPage(`${PAGE_CONFIG.margin.left} ${yPosition} Td`);
+      addToCurrentPage(
+        `(${paragraph.replace(/\(/g, "\\(").replace(/\)/g, "\\)")}) Tj`,
+      );
+      yPosition -= PAGE_CONFIG.lineHeight * 2;
+      addToCurrentPage("ET");
+    } else {
+      const words = paragraph.trim().split(/\s+/);
+      let currentLine = "";
+
+      addToCurrentPage(`/F1 ${PAGE_CONFIG.fontSize} Tf`);
+      addToCurrentPage(`${PAGE_CONFIG.margin.left} ${yPosition} Td`);
+
+      words.forEach((word) => {
+        if ((currentLine + " " + word).length <= PAGE_CONFIG.charsPerLine) {
+          currentLine += (currentLine ? " " : "") + word;
+        } else {
+          addToCurrentPage(
+            `(${currentLine.replace(/\(/g, "\\(").replace(/\)/g, "\\)")}) Tj`,
+          );
+          yPosition -= PAGE_CONFIG.lineHeight;
+
+          if (yPosition <= PAGE_CONFIG.margin.bottom + PAGE_CONFIG.lineHeight) {
+            addToCurrentPage("ET");
+            yPosition = startNewPage();
+            addToCurrentPage("BT");
+            addToCurrentPage(`/F1 ${PAGE_CONFIG.fontSize} Tf`);
+            addToCurrentPage(`${PAGE_CONFIG.margin.left} ${yPosition} Td`);
+          } else {
+            addToCurrentPage(`0 -${PAGE_CONFIG.lineHeight} Td`);
+          }
+
+          currentLine = word;
+        }
+      });
+
+      if (currentLine) {
+        addToCurrentPage(
+          `(${currentLine.replace(/\(/g, "\\(").replace(/\)/g, "\\)")}) Tj`,
+        );
+        yPosition -= PAGE_CONFIG.lineHeight * 1.5;
+      }
+
+      addToCurrentPage("ET");
+    }
+  });
+
+  return pages.map((pageContent) => pageContent.join("\n"));
 }
 
 export function generatePDF() {
@@ -78,7 +157,7 @@ export function generatePDF() {
 
   const fontObjNum = 3 + pages.length * 2;
 
-  pages.forEach((pageLines, pageNum) => {
+  pages.forEach((pageContent, pageNum) => {
     const pageObjNum = pageNum * 2 + 3;
     const contentObjNum = pageObjNum + 1;
 
@@ -90,22 +169,13 @@ export function generatePDF() {
       `/Contents ${contentObjNum} 0 R\n>>\nendobj\n`;
     objects.push(pageObj);
 
-    const content = `BT\n/F1 ${PAGE_CONFIG.fontSize} Tf\n${PAGE_CONFIG.margin.left} ${
-      PAGE_CONFIG.height - PAGE_CONFIG.margin.top
-    } Td\n${pageLines
-      .map(
-        (line) =>
-          `(${line.replace(/\(/g, "\\(").replace(/\)/g, "\\)")}) Tj\n0 -${PAGE_CONFIG.lineHeight} Td\n`,
-      )
-      .join("")}ET`;
-
     objectOffsets[contentObjNum] = objects.join("").length;
-    const contentObj = `${contentObjNum} 0 obj\n<<\n/Length ${content.length}\n>>\nstream\n${content}\nendstream\nendobj\n`;
+    const contentObj = `${contentObjNum} 0 obj\n<<\n/Length ${pageContent.length}\n>>\nstream\n${pageContent}\nendstream\nendobj\n`;
     objects.push(contentObj);
   });
 
   objectOffsets[fontObjNum] = objects.join("").length;
-  const fontObj = `${fontObjNum} 0 obj\n<<\n/Type /Font\n/Subtype /Type1\n/BaseFont /Helvetica\n>>\nendobj\n`;
+  const fontObj = `${fontObjNum} 0 obj\n<<\n/Type /Font\n/Subtype /Type1\n/BaseFont /Helvetica-Bold\n>>\nendobj\n`;
   objects.push(fontObj);
 
   const xrefOffset = objects.join("").length;
