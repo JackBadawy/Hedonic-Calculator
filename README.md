@@ -34,7 +34,7 @@ The calculator evaluates actions based on seven key variables from Bentham's ori
 
 ### PDF Generation
 
-The application includes functionality to generate and download a PDF version of Bentham's essay "An Introduction to the Principles of Morals and Legislation". Key features include:
+With help from the book 'PDF Explained: The ISO Standard for Document Exchange' by John Whitington, this application includes functionality to generate and download a PDF version of Bentham's essay "An Introduction to the Principles of Morals and Legislation". Key features include:
 
 - Dynamic PDF generation with proper formatting
 - Chapter-based organization
