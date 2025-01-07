@@ -12,7 +12,7 @@ const AboutBtn = () => {
       .open();
   };
   return (
-    <div className="h-32 w-32 flex items-center justify-center">
+    <div className="pl-20 sm:pl-0 h-32 w-32 flex items-center sm:justify-center">
       <div className="z-10 border-4 rounded-2xl bg-hpal-200 border-hpal-500 p-px mr-8">
         <div className="border-4 border-hpal-500 p-px rounded-xl flex items-center justify-center">
           <button

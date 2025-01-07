@@ -36,11 +36,11 @@ export default function Main() {
       <div className="p-4 overflow-hidden">
         <div></div>
         <div className="relative mb-5">
-          <div className="grid grid-cols-3 auto-rows-fr justify-center items-center">
+          <div className="grid grid-cols-3 justify-center items-center">
             <div className="relative bg-hpal-200">
               <SubHeading txt="Events" />
             </div>
-            <div className="flex z-10 place-items-center">
+            <div className="flex z-10 place-items-center justify-self-end">
               <AddEvent />
             </div>
             <div className="z-10 justify-self-end">

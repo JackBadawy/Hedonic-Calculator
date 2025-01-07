@@ -26,11 +26,12 @@ const AddEvent: React.FC = () => {
             <button
               className={
                 fascinateInline.className +
-                " rounded-full h-24 w-24 bg-hpal-500 hover:bg-hpal-200 text-hpal-200 text-wrap text-xl font-extrabold hover:text-hpal-500 transition-colors"
+                " flex justify-center sm:items-center rounded-full h-12 w-12 sm:h-24 sm:w-24 bg-hpal-500 hover:bg-hpal-200 text-hpal-200 text-wrap text-xl font-extrabold hover:text-hpal-500 transition-colors"
               }
               onClick={openEventModal}
             >
-              Add Event
+              <p className="hidden sm:block">Add Event</p>
+              <p className="sm:hidden text-4xl text-center">+</p>
             </button>
           </span>
         </span>
