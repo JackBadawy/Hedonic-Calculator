@@ -1,4 +1,3 @@
-import { Monoton } from "next/font/google";
 import { Fascinate_Inline } from "next/font/google";
 type SubHeadingProps = {
   txt: string;

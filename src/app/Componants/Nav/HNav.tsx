@@ -20,13 +20,20 @@ const HNav = () => {
       <div className="bg-hpal-500 py-2">
         <hr className="border-0 bg-hpal-200 h-1 text-hpal-200" />
         <div className="my-1 text-hpal-200 flex items-center justify-between p-2 px-4">
-          <h1 className={monoton.className + " text-5xl"}>
+          <h1
+            className={
+              monoton.className +
+              " text-[32px] sm:text-4xl md:text-[40px] lg:text-5xl"
+            }
+          >
             Hedonic Calculator
           </h1>
-          <div className="transition-all font-bold flex items-center gap-2">
-            {pathName === "/main" && username !== "" ? (
+          <div className="ml-4 transition-all font-bold flex items-center gap-2">
+            {pathName === "/main" && username ? (
               <>
-                <p className="text-lg select-none">{username}:</p>
+                <p className="hidden sm:block text-lg select-none">
+                  {username}:
+                </p>
                 <LogoutBtn />
               </>
             ) : null}
