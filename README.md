@@ -3,7 +3,7 @@
 A calculator based on Jeremy Bentham's felicific calculus (hedonic calculus) designed to help evaluate and calculate the potential joy or utility of different courses of action.
 
 ## Links
-
+** Deployment currently paused
 [Live Deployment](https://gentle-wave-01f645f1e.4.azurestaticapps.net/login)
 
 [Backend Repository](https://github.com/JackBadawy/hcalc_backend)
